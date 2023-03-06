@@ -13,28 +13,28 @@ module card18 (i4_Fan_on_b, i5_G1_on_b, i6_CA_on_b,
 	// Circuit 1 
 	or   #0.05 
 	or1   
-		(o47_SB_on_b,      
-	    i4_Fan_on_b,    
-		 i5_G1_on_b,         
-		 i6_CA_on_b,);
+	(o47_SB_on_b,      
+	 i4_Fan_on_b,    
+	 i5_G1_on_b,         
+	 i6_CA_on_b,);
 	
 	not  #0.05 
 	inv1  
-		(o42_SB_off_b,  
-		 o47_SB_on_b);
+	(o42_SB_off_b,  
+	 o47_SB_on_b);
 	
 	// Circuit 2
 	or   #0.05 
 	or2   
-		(o46_hv_on,      
-	    i18_G2_on,    
-		 i19_anode_on);
+	 (o46_hv_on,      
+	  i18_G2_on,    
+	  i19_anode_on);
 		 
 	nand   #0.05 
 	nand1   
-		(o45_hv_on,      
-	    i18_G2_on,    
-		 i19_anode_on);
+	  (o45_hv_on,      
+	   i18_G2_on,    
+	   i19_anode_on);
 	
 	// wiring
 	assign o78_rf_perm  = i77_rf_red;
@@ -50,8 +50,8 @@ module card18_testbench();
 	logic o47_SB_on_b, o42_SB_off_b, o46_hv_on, o45_hv_on, o78_rf_perm, o76_rf_perm, o74_hv_ready;
   
    card18 dut (i4_Fan_on_b, i5_G1_on_b, i6_CA_on_b,
-					i18_G2_on, i19_anode_on, i77_rf_red, i75_rf_perm, i73_an_hv_ready,
-					o47_SB_on_b, o42_SB_off_b, o46_hv_on, o45_hv_on, o78_rf_perm, o76_rf_perm, o74_hv_ready) ; 
+		i18_G2_on, i19_anode_on, i77_rf_red, i75_rf_perm, i73_an_hv_ready,
+		o47_SB_on_b, o42_SB_off_b, o46_hv_on, o45_hv_on, o78_rf_perm, o76_rf_perm, o74_hv_ready) ; 
 			
 	initial begin   
    
