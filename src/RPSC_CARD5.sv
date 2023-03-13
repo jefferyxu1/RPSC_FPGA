@@ -2,7 +2,7 @@
 
 module RPSC_CARD5 (i11_G2_ok_b, i12_DR_amp_ok_b, i10_ff3, i9_ff4, i8_ff6, i7_ff2, i6_ff1, 
                      i50_ff1, i51_ff3, i53_G1_on_b, i54_DR_amp_on_b, i56_CA_on_b, i42_anode_on_b,
-							   o16_RF_perm_b, o14_RF_perm_b_38in, o13_alarm_b, o47_RF_red_b_27in, o59_RF_red_b) ;
+			o16_RF_perm_b, o14_RF_perm_b_38in, o13_alarm_b, o47_RF_red_b_27in, o59_RF_red_b) ;
 	input logic i11_G2_ok_b, 
 	            i12_DR_amp_ok_b, 
 		    i10_ff3, 
