@@ -16,3 +16,20 @@ module card6 (o77_I_AN_HIGH, o47_Emergency, o38_Not_Alarm,
 
 endmodule
     
+
+module card6_testbench();
+    logic o77_I_AN_HIGH, o47_Emergency, o38_Not_Alarm;
+    logic i75_Not_TUNE_OK_Delayed, i74_I_AN_5A, i76_I_AN_6A, i_External,
+    i32_Anode_PS_Control, i25_G1_PS_Control, i24_G2_PS_Control, i34_CA_PS_Control,
+    i36_DR_AMP_Control, i37_RF_PERMIT_TED_Control;
+
+    card6 dut (.*);
+
+    parameter CLOCK_PERIOD = 100;
+    integer i;
+    
+    initial begin
+        #100;
+        $stop;
+    end
+endmodule

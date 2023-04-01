@@ -31,3 +31,31 @@ module card1(o55_Not_Alarm, o47_CA_ON_PERM, o62_CA_ON, o74_CA_Delay,
     
 
 endmodule
+
+module card1_testbench();
+    logic o55_Not_Alarm, o47_CA_ON_PERM, o62_CA_ON, o74_CA_Delay, 
+    o75_Not_CA_OK, o70_I_CA_High, o77_U_CA_Low, o78_Modified;
+    logic clk, reset, i54_FAN_ON, i53_Not_G1_OK, i59_CA_PS_ACT,  
+    i51_Card_POS, i50_Air_Grid, i49_Water_Anode, i48_Water_Grid, i46_DC_PS,
+    i45_U_CA_Low, i44_I_CA_High, i72_I_CA_High, i76_U_CA_Low;
+
+    card1 dut (.*);
+
+    parameter CLOCK_PERIOD = 100;
+    integer i;
+    
+    // simulated clock
+    initial begin
+        clk <= 0;
+        forever #(CLOCK_PERIOD/2) clk <= ~clk;
+    end // initial
+
+    initial begin
+        reset <= 1'b1; @(posedge clk);
+        reset <= 1'b0; @(posedge clk);
+        repeat(100) @(posedge clk);
+        $stop;
+    end
+
+endmodule
+
