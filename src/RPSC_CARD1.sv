@@ -17,7 +17,7 @@ module RPSC_CARD1(o55_Not_Alarm, o47_CA_ON_PERM, o62_CA_ON, o74_CA_Delay,
     assign norControl = ~(i53_Not_G1_OK | i54_FAN_ON | norStatus);
     assign andControl = norControl & i59_CA_PS_ACT;
     
-    shiftRegister #(.N(256)) check_4_second (.on(on_4s), .in(andControl), .clk(clk).reset(reset));
+    shiftRegister #(.N(256)) check_4_second (.on(on_4s), .in(andControl), .clk(clk), .reset(reset));
     shiftRegister #(.N(3840)) check_60_second(.on(on_60s), .in(on_4s), .clk(clk), .reset(reset));
     
     assign o55_Not_Alarm = norStatus;
