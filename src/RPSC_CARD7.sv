@@ -15,7 +15,8 @@ module RPSC_CARD7(clk, reset, i4_FF1_IN,
                  o45_FF5_OUT, o42_FF5_LA,
                  o55_FF6_OUT, o59_FF6_LA,
                  o65_FF7_OUT, o62_FF7_LA,
-                 o74_FF8_OUT, o78_FF8_LA);
+                 o74_FF8_OUT, o78_FF8_LA,
+                 o_PAMP_Interlock);
 
     input logic clk, reset;
     input logic i4_FF1_IN, 
