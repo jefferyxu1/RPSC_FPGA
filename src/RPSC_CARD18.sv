@@ -2,7 +2,7 @@
 
 module RPSC_CARD18 (i4_Fan_on_b, i5_G1_on_b, i6_CA_on_b,
 					i18_G2_on, i19_anode_on, i77_rf_red, i75_rf_perm, i73_an_hv_ready,
-					o47_SB_on_b, o42_SB_off_b, o46_hv_on, o45_hv_on, o78_rf_perm, o76_rf_perm, o74_hv_ready) ;
+					o47_SB_on_b, o42_SB_off_b, o46_hv_on, o45_hv_on, o78_rf_perm, o76_rf_perm, o74_hv_ready);
 
 	input  logic i4_Fan_on_b, i5_G1_on_b, i6_CA_on_b;
 	input  logic i18_G2_on, i19_anode_on, i77_rf_red, i75_rf_perm, i73_an_hv_ready;
