@@ -1,75 +1,76 @@
 `timescale 1ns/10ps
+// TODO: Figure out Input pin 17 and 34
 
-module RPSC_CARD18 (i4_Fan_on_b, i5_G1_on_b, i6_CA_on_b,
-					i18_G2_on, i19_anode_on, i77_rf_red, i75_rf_perm, i73_an_hv_ready,
-					o47_SB_on_b, o42_SB_off_b, o46_hv_on, o45_hv_on, o78_rf_perm, o76_rf_perm, o74_hv_ready);
+module RPSC_CARD18 (i3_Not_DR_AMP_ON, i4_Not_FAN_ON, i5_Not_G1_ON, i6_Not_CA_ON,
+					i17_PS_ON, i18_Not_G2_ON, i19_Not_Anode_ON, i77_Not_RF_RED, i75_Not_RF_PERM, i73_Not_AN_HV_Ready,
+					o47_Not_SB_ON, o42_Not_SB_OFF, o46_Not_HV_ON, o45_Not_HV_ON, o78_Not_RF_PERM, o76_Not_RF_PERM, o74_Not_HV_Ready);
 
-	input  logic i4_Fan_on_b, i5_G1_on_b, i6_CA_on_b;
-	input  logic i18_G2_on, i19_anode_on, i77_rf_red, i75_rf_perm, i73_an_hv_ready;
-	output logic o47_SB_on_b, o42_SB_off_b, o46_hv_on, o45_hv_on, o78_rf_perm, o76_rf_perm, o74_hv_ready;
+	input  logic i3_Not_DR_AMP_ON, i4_Not_FAN_ON, i5_Not_G1_ON, i6_Not_CA_ON;
+	input  logic i17_PS_ON, i18_Not_G2_ON, i19_Not_Anode_ON, i77_Not_RF_RED, i75_Not_RF_PERM, i73_Not_AN_HV_Ready;
+	output logic o47_Not_SB_ON, o42_Not_SB_OFF, o46_Not_HV_ON, o45_Not_HV_ON, o78_Not_RF_PERM, o76_Not_RF_PERM, o74_Not_HV_Ready;
 	
 	logic or_o1; 
 	
 	// Circuit 1 
 	or   #0.05 
 	or1   
-	(o47_SB_on_b,      
-	 i4_Fan_on_b,    
-	 i5_G1_on_b,         
-	 i6_CA_on_b,);
+	(o47_Not_SB_ON,      
+	 i4_Not_FAN_ON,    
+	 i5_Not_G1_ON,         
+	 i6_Not_CA_ON,);
 	
 	not  #0.05 
 	inv1  
-	(o42_SB_off_b,  
-	 o47_SB_on_b);
+	(o42_Not_SB_OFF,  
+	 o47_Not_SB_ON);
 	
 	// Circuit 2
 	or   #0.05 
 	or2   
-	 (o46_hv_on,      
-	  i18_G2_on,    
-	  i19_anode_on);
+	 (o46_Not_HV_ON,      
+	  i18_Not_G2_ON,    
+	  i19_Not_Anode_ON);
 		 
-	nand   #0.05 
-	nand1   
-	  (o45_hv_on,      
-	   i18_G2_on,    
-	   i19_anode_on);
+	nANd   #0.05 
+	nANd1   
+	  (o45_Not_HV_ON,      
+	   i18_Not_G2_ON,    
+	   i19_Not_Anode_ON);
 	
 	// wiring
-	assign o78_rf_perm  = i77_rf_red;
-	assign o76_rf_perm  = i75_rf_perm;
-	assign o74_hv_ready = i73_an_hv_ready;
+	assign o78_Not_RF_PERM  = i77_Not_RF_RED;
+	assign o76_Not_RF_PERM  = i75_Not_RF_PERM;
+	assign o74_Not_HV_Ready = i73_Not_AN_HV_Ready;
 	
 endmodule
 
 module RPSC_CARD18_testbench(); 
   
-	logic i4_Fan_on_b, i5_G1_on_b, i6_CA_on_b;
-	logic i18_G2_on, i19_anode_on, i77_rf_red, i75_rf_perm, i73_an_hv_ready;
-	logic o47_SB_on_b, o42_SB_off_b, o46_hv_on, o45_hv_on, o78_rf_perm, o76_rf_perm, o74_hv_ready;
+	logic i4_Not_FAN_ON, i5_Not_G1_ON, i6_Not_CA_ON;
+	logic i18_Not_G2_ON, i19_Not_Anode_ON, i77_Not_RF_RED, i75_Not_RF_PERM, i73_Not_AN_HV_Ready;
+	logic o47_Not_SB_ON, o42_Not_SB_OFF, o46_Not_HV_ON, o45_Not_HV_ON, o78_Not_RF_PERM, o76_Not_RF_PERM, o74_Not_HV_Ready;
   
-    RPSC_CARD18 dut (i4_Fan_on_b, i5_G1_on_b, i6_CA_on_b,
-		i18_G2_on, i19_anode_on, i77_rf_red, i75_rf_perm, i73_an_hv_ready,
-		o47_SB_on_b, o42_SB_off_b, o46_hv_on, o45_hv_on, o78_rf_perm, o76_rf_perm, o74_hv_ready) ; 
+    RPSC_CARD18 dut (i4_Not_FAN_ON, i5_Not_G1_ON, i6_Not_CA_ON,
+		i18_Not_G2_ON, i19_Not_Anode_ON, i77_Not_RF_RED, i75_Not_RF_PERM, i73_Not_AN_HV_Ready,
+		o47_Not_SB_ON, o42_Not_SB_OFF, o46_Not_HV_ON, o45_Not_HV_ON, o78_Not_RF_PERM, o76_Not_RF_PERM, o74_Not_HV_Ready) ; 
 			
 	initial begin   
    
-    i4_Fan_on_b=0; i5_G1_on_b  =0; i6_CA_on_b     =0; 
-	 i18_G2_on  =0; i19_anode_on=0; 
-	 i77_rf_red =0; i75_rf_perm =0; i73_an_hv_ready=0; #10;
-	 i4_Fan_on_b=0; i5_G1_on_b  =0; i6_CA_on_b     =1; 
-	 i18_G2_on  =0; i19_anode_on=1; 
-	 i77_rf_red =0; i75_rf_perm =0; i73_an_hv_ready=1; #10;
-	 i4_Fan_on_b=0; i5_G1_on_b  =1; i6_CA_on_b     =0; 
-	 i18_G2_on  =1; i19_anode_on=0; 
-	 i77_rf_red =0; i75_rf_perm =1; i73_an_hv_ready=0; #10;
-	 i4_Fan_on_b=1; i5_G1_on_b  =0; i6_CA_on_b     =0; 
-	 i18_G2_on  =1; i19_anode_on=0; 
-	 i77_rf_red =1; i75_rf_perm =0; i73_an_hv_ready=0; #10;
-	 i4_Fan_on_b=1; i5_G1_on_b  =1; i6_CA_on_b     =1; 
-	 i18_G2_on  =1; i19_anode_on=1; 
-	 i77_rf_red =1; i75_rf_perm =1; i73_an_hv_ready=1; #10;
+    i4_Not_FAN_ON=0; i5_Not_G1_ON  =0; i6_Not_CA_ON     =0; 
+	 i18_Not_G2_ON  =0; i19_Not_Anode_ON=0; 
+	 i77_Not_RF_RED =0; i75_Not_RF_PERM =0; i73_Not_AN_HV_Ready=0; #10;
+	 i4_Not_FAN_ON=0; i5_Not_G1_ON  =0; i6_Not_CA_ON     =1; 
+	 i18_Not_G2_ON  =0; i19_Not_Anode_ON=1; 
+	 i77_Not_RF_RED =0; i75_Not_RF_PERM =0; i73_Not_AN_HV_Ready=1; #10;
+	 i4_Not_FAN_ON=0; i5_Not_G1_ON  =1; i6_Not_CA_ON     =0; 
+	 i18_Not_G2_ON  =1; i19_Not_Anode_ON=0; 
+	 i77_Not_RF_RED =0; i75_Not_RF_PERM =1; i73_Not_AN_HV_Ready=0; #10;
+	 i4_Not_FAN_ON=1; i5_Not_G1_ON  =0; i6_Not_CA_ON     =0; 
+	 i18_Not_G2_ON  =1; i19_Not_Anode_ON=0; 
+	 i77_Not_RF_RED =1; i75_Not_RF_PERM =0; i73_Not_AN_HV_Ready=0; #10;
+	 i4_Not_FAN_ON=1; i5_Not_G1_ON  =1; i6_Not_CA_ON     =1; 
+	 i18_Not_G2_ON  =1; i19_Not_Anode_ON=1; 
+	 i77_Not_RF_RED =1; i75_Not_RF_PERM =1; i73_Not_AN_HV_Ready=1; #10;
 	 
   end   		
   
