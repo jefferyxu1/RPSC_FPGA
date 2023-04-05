@@ -18,7 +18,14 @@ module RPSC_TOP(clk, reset);
     // card 6
     input logic i_C6_External;
     // card 7
-    output logic o_LA_Emergency, o_LA_Card_POS, o_LA_Air_Grid, o_LA_Air_Anode, o_LA_Water_Heat_Exchanger, o_LA_Water_Anode;
+    output logic o_LA_Emergency, o_LA_Card_POS, o_LA_Air_Grid, o_LA_Air_Anode, o_LA_Water_Heat_Exchanger, 
+                    o_LA_Water_Anode, o_LA_Door_PAMP, o_LA_Ground_SW;
+    // card 8
+    output logic o_LA_HV_Connector, o_LA_G1_PS_Local, o_LA_Anode_PS_Local, o_LA_Anode_PS_Dummy, o_LA_G2_PS_Local, 
+                    o_LA_I_G2_High, o_LA_FAN_OFF_Delay;
+    // card 9
+    output logic o_LA_G1_PS_Fault, o_LA_I_G2_High, o_LA_TEMP_DR_AMP, o_LA_Anode_PS_Fault, o_LA_AN_PS_Over_Current,
+                    o_LA_I_G1_High, o_LA_G1_PS_Over_Temp, o_LA_G2_PS_Internal_Fault;
 // ------------------------------------------------------
     // wire originate from this card declares here
     logic C1_o55_Not_Alarm_to_C6_i34_CA_PS_Control,
@@ -66,14 +73,18 @@ module RPSC_TOP(clk, reset);
         .clk(clk), 
         .reset(reset), 
         i10_Card_POS, 
-        .i9_Emergency(C7_o6_FF1_Emergency_OUT_to_C2_i9_C2_i49_C3_i5_C3_i50_C5_i6_C5_i50_Emergency), i8_Door_PAMP, i7_I_G1_High, 
+        .i9_Emergency(C7_o6_FF1_Emergency_OUT_to_C2_i9_C2_i49_C3_i5_C3_i50_C5_i6_C5_i50_Emergency), 
+        .i8_Door_PAMP(C7_o65_FF7_Door_PAMP_OUT_to_C2_i8_C2_i51_Door_PAMP), 
+        .i7_I_G1_High(C9_o6_FF17_G1_PS_Fault_OUT_to_C2_i7_I_G1_High), 
         i6_DC_PS, i5_U_G1_Low, i18_G1_PS_ACT, i32_G_U1_Low, 
         .i53_Not_G1_OK(C2_o36_Not_G1_OK_to_C2_i53_Not_G1_OK), 
         .i54_Not_CA_OK(C1_o75_Not_CA_OK_to_C2_i54_Not_CA_OK), 
-        i51_Door_PAMP, i50_Anode_PS_Fault, 
+        .i51_Door_PAMP(C7_o65_FF7_Door_PAMP_OUT_to_C2_i8_C2_i51_Door_PAMP), 
+        .i50_Anode_PS_Fault(C9_o35_FF20_AN_PS_Fault_OUT_to_C2_i50_Anode_PS_Fault), 
         .i49_Emergency(C7_o6_FF1_Emergency_OUT_to_C2_i9_C2_i49_C3_i5_C3_i50_C5_i6_C5_i50_Emergency), 
-        i48_GR_SW_PAMP, 
-        i46_DC_PS, i45_HV_Connector, 
+        .i48_GR_SW_PAMP(C7_o74_FF8_GR_SW_OUT_to_C2_i48_GR_SW_PAMP), 
+        i46_DC_PS, 
+        .i45_HV_Connector(C8_o6_FF9_HV_Connector_OUT_to_C2_i45_HV_Connector), 
         .i44_Card_POS(C7_o15_FF2_Card_POS_OUT_to_C2_i44_Card_POS), 
         i72_U_AN_Low, i59_AN_PS_ACT, 
         i42_Not_OT_AN_Ready, 
@@ -105,13 +116,16 @@ module RPSC_TOP(clk, reset);
 
     RPSC_CARD3 card3 (
         .clk(clk), .reset(reset), 
-        .i15_AN_PS(C2_o75_Not_AN_OK_to_C3_i15_AN_PS), i10_I_AN_High, i9_I_G2_High, i8_DC_PS, i7_U_AN_LOW, 
+        .i15_AN_PS(C2_o75_Not_AN_OK_to_C3_i15_AN_PS), i10_I_AN_High, 
+        .i9_I_G2_High(C9_o15_FF18_G2_PS_Fault_OUT_to_C3_i9_I_G2_High), 
+        i8_DC_PS, i7_U_AN_LOW, 
         i6_Card_POS, 
         .i5_Emergency(C7_o6_FF1_Emergency_OUT_to_C2_i9_C2_i49_C3_i5_C3_i50_C5_i6_C5_i50_Emergency), 
         i4_U_G2_Low, i18_G2_PS_ACT, i32_G_U2_Low, 
         i51_Card_POS, 
         .i50_Emergency(C7_o6_FF1_Emergency_OUT_to_C2_i9_C2_i49_C3_i5_C3_i50_C5_i6_C5_i50_Emergency), 
-        i49_DRAC_Overtemp, i59_DR_AMP, 
+        .i49_DRAC_Overtemp(C9_o25_FF19_Temp_DR_AMP_OUT_to_C3_i49_DRAC_Overtemp), 
+        i59_DR_AMP, 
         .o13_Not_Alarm(C3_o13_Not_Alarm_to_C6_i24_G2_PS_Control), 
         .o14_Not_ON_PERM(C3_o14_Not_ON_PERM_to_C11_i4_FF33_G2_ON_PERM_IN), 
         .o39_Ground_Hold_OK(o_C3_BJT_39), 
@@ -169,6 +183,8 @@ module RPSC_TOP(clk, reset);
           C7_o35_FF4_Air_Anode_OUT_to_C5_i9_FF4,
           C7_o45_FF5_Water_Heat_Exchanger_OUT_C1_i48_Water_Grid,
           C7_o55_FF6_Water_Anode_OUT_to_C1_49_C5_8_Water_Anode,
+          C7_o65_FF7_Door_PAMP_OUT_to_C2_i8_C2_i51_Door_PAMP,
+          C7_o74_FF8_GR_SW_OUT_to_C2_i48_GR_SW_PAMP,
 
     RPSC_CARD7 card7 (.clk(clk), .reset(reset), 
         .i4_FF1_Emergency_IN(C6_o47_Emergency_to_C7_i4_FF1_Emergency_IN), 
@@ -191,9 +207,13 @@ module RPSC_TOP(clk, reset);
         .o42_FF5_Water_Heat_Exchanger_LA(o_LA_Water_Heat_Exchanger),
         .o55_FF6_Water_Anode_OUT(C7_o55_FF6_Water_Anode_OUT_to_C1_49_C5_8_Water_Anode), 
         .o59_FF6_Water_Anode_LA(o_LA_Water_Anode),
-        o65_FF7_Door_PAMP_OUT, o62_FF7_Door_PAMP_LA,
-        o74_FF8_GR_SW_OUT, o78_FF8_GR_SW_LA);
+        .o65_FF7_Door_PAMP_OUT(C7_o65_FF7_Door_PAMP_OUT_to_C2_i8_C2_i51_Door_PAMP), 
+        .o62_FF7_Door_PAMP_LA(o_LA_Door_PAMP),
+        .o74_FF8_GR_SW_OUT(C7_o74_FF8_GR_SW_OUT_to_C2_i48_GR_SW_PAMP), 
+        .o78_FF8_GR_SW_LA(o_LA_Ground_SW));
 //------------------------------------------------------------
+    logic C8_o6_FF9_HV_Connector_OUT_to_C2_i45_HV_Connector;
+    
     RPSC_CARD8 card8 (clk, reset,
         i4_FF9_HV_Connector_IN,
         i17_FF10_G1_PS_Local_IN,
@@ -202,14 +222,22 @@ module RPSC_TOP(clk, reset);
         i43_FF13_G2_PS_Local_IN,
         i57_FF14_I_G2_High_IN,
         i76_FF16_FAN_OFF_Delay_IN,
-        o6_FF9_HV_Connector_OUT, o3_FF9_HV_Connector_LA, o9_FF9_HV_Connector_PAMP_Interlock,
-        o22_FF11_Anode_PS_Local_LA,
-        o39_FF12_Anode_PS_Dummy_LA,
-        o42_FF13_G2_PS_Local_LA,
-        o59_FF14_I_G2_High_LA,
-        o78_FF16_FAN_OFF_Delay_LA);
+        .o6_FF9_HV_Connector_OUT(C8_o6_FF9_HV_Connector_OUT_to_C2_i45_HV_Connector),
+        .o3_FF9_HV_Connector_LA(o_LA_HV_Connector),
+        .o19_FF10_G1_PS_Local_LA(o_LA_G1_PS_Local)
+        .o22_FF11_Anode_PS_Local_LA(o_LA_Anode_PS_Local),
+        .o39_FF12_Anode_PS_Dummy_LA(o_LA_Anode_PS_Dummy),
+        .o42_FF13_G2_PS_Local_LA(o_LA_G2_PS_Local),
+        .o59_FF14_I_G2_High_LA(o_LA_I_G2_High),
+        .o78_FF16_FAN_OFF_Delay_LA(o_LA_FAN_OFF_Delay));
 
 //------------------------------------------------------------
+    logic C9_o6_FF17_G1_PS_Fault_OUT_to_C2_i7_I_G1_High,
+          C9_o15_FF18_G2_PS_Fault_OUT_to_C3_i9_I_G2_High,
+          C9_o25_FF19_Temp_DR_AMP_OUT_to_C3_i49_DRAC_Overtemp,
+          C9_o35_FF20_AN_PS_Fault_OUT_to_C2_i50_Anode_PS_Fault,
+
+
     RPSC_CARD9 card9 (clk, reset_from_card6_45,
         i4_FF17_G1_PS_Fault_IN, 
         i17_FF18_G2_PS_Fault_IN,
@@ -219,14 +247,18 @@ module RPSC_TOP(clk, reset);
         i57_FF22_I_G1_High_IN,
         i63_FF23_G1_PS_Over_Temp_IN,
         i76_FF24_G2_PS_Internal_Fault_IN,
-        o6_FF17_G1_PS_Fault_OUT, o3_FF17_G1_PS_Fault_LA,
-        o15_FF18_G2_PS_Fault_OUT, o19_FF18_G2_PS_Fault_LA,
-        o25_FF19_Temp_DR_AMP_OUT, o22_FF19_Temp_DR_AMP_LA,
-        o35_FF20_AN_PS_Fault_OUT, o39_FF20_AN_PS_Fault_LA,
-        o42_FF21_AN_PS_Over_Current_LA,
-        o59_FF22_I_G1_High_LA,
-        o62_FF23_G1_PS_Over_Temp_LA,
-        o78_FF24_G2_PS_Internal_Fault_LA);
+        .o6_FF17_G1_PS_Fault_OUT(C9_o6_FF17_G1_PS_Fault_OUT_to_C2_i7_I_G1_High), 
+        .o3_FF17_G1_PS_Fault_LA(o_LA_G1_PS_Fault),
+        .o15_FF18_G2_PS_Fault_OUT(C9_o15_FF18_G2_PS_Fault_OUT_to_C3_i9_I_G2_High), 
+        .o19_FF18_G2_PS_Fault_LA(o_LA_I_G2_High),
+        .o25_FF19_Temp_DR_AMP_OUT(C9_o25_FF19_Temp_DR_AMP_OUT_to_C3_i49_DRAC_Overtemp), 
+        .o22_FF19_Temp_DR_AMP_LA(o_LA_TEMP_DR_AMP),
+        .o35_FF20_AN_PS_Fault_OUT(C9_o35_FF20_AN_PS_Fault_OUT_to_C2_i50_Anode_PS_Fault), 
+        .o39_FF20_AN_PS_Fault_LA(o_LA_Anode_PS_Fault),
+        .o42_FF21_AN_PS_Over_Current_LA(o_LA_AN_PS_Over_Current),
+        .o59_FF22_I_G1_High_LA(o_LA_I_G1_High),
+        .o62_FF23_G1_PS_Over_Temp_LA(o_LA_G1_PS_Over_Temp),
+        .o78_FF24_G2_PS_Internal_Fault_LA(o_LA_G2_PS_Internal_Fault));
 
 //------------------------------------------------------------
     RPSC_CARD10 card10 (clk, reset,
@@ -293,9 +325,4 @@ module RPSC_TOP(clk, reset);
 
 //------------------------------------------------------------
 
-
-//------------------------------------------------------------
-
-
-//------------------------------------------------------------
 endmodule
