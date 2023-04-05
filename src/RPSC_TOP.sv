@@ -7,6 +7,8 @@ module RPSC_TOP(clk, reset);
 
     // general
     input logic clk, reset;
+    // lamp test
+    input logic LA_TEST;
     // Card 1
     input logic i_EP1_5, i_EP1_4, i_EP1_37, i_C14_46_I_CA_High, i_C14_74_U_CA_Low;
     output logic o_C1_BJT_78;
@@ -23,7 +25,7 @@ module RPSC_TOP(clk, reset);
     // card 6
     input logic i_C6_External, i_EP6_3, i_C16_22_I_AN_High_5A, i_C16_46_I_AN_High_6A;
     // card 7
-    input logic i_EP1_10, i_EP1_11, i_EP1_14, i_EP1_15, i_EP1_18, i_EP1_19;
+    input logic i_EP1_10, i_EP1_11, i_EP1_14, i_EP1_15, i_EP1_18, i_EP1_19, i_Card_POS;
     output logic o_LA_Emergency, o_LA_Card_POS, o_LA_Air_Grid, o_LA_Air_Anode, o_LA_Water_Heat_Exchanger, 
                     o_LA_Water_Anode, o_LA_Door_PAMP, o_LA_Ground_SW;
     // card 8
@@ -46,6 +48,7 @@ module RPSC_TOP(clk, reset);
                     o_LA_DC_PS_Low, o_LA_Alarm;
     // card 18
     output logic o_EP7_36, o_EP7_37, o_EP7_44, o_EP7_43, o_EP7_41, o_EP7_40, o_EP7_39;
+
     
 // ------------------------------------------------------
     // wire originate from this card declares here
@@ -236,7 +239,7 @@ module RPSC_TOP(clk, reset);
         .clk(clk), 
         .reset(reset), 
         .i4_FF1_Emergency_IN(C6_o47_Emergency_to_C7_i4_FF1_Emergency_IN), 
-        i17_FF2_Card_POS_IN, // TODO: Do we need it?
+        .i17_FF2_Card_POS_IN(i_Card_POS), // from analog card to make sure all cards are connected
         .i23_FF3_Air_Grid_IN(i_EP1_10), 
         .i37_FF4_Air_Anode_IN(i_EP1_11), 
         .i43_FF5_Water_Heat_Exchanger_IN(i_EP1_14), 
@@ -396,7 +399,7 @@ module RPSC_TOP(clk, reset);
         .i4_Not_FAN_ON(C1_o19_FAN_ON_to_C1_i54_C10_i17_C18_i4_FAN_ON), 
         .i5_Not_G1_ON(C2_o19_Not_G1_ON_to_C10_i57_C18_i5_G1_ON), 
         .i6_Not_CA_ON(C1_o62_CA_ON_to_C5_i56_C10_i37_C18_i6_CA_ON),
-        i17_PS_ON, // TODO: Do we need PS ON?
+        i34_Not_ANY_HV_GO_OFF,
         .i18_Not_G2_ON(C3_o19_Not_G2_PS_ON_to_C11_i17_C18_i18_G2_ON), 
         .i19_Not_Anode_ON(C2_o62_AN_ON_to_C5_i42_C10_i76_C18_i19_Anode_ON), 
         .i77_Not_RF_RED(C5_o47_FF37_to_C11_i43_C18_i77_RF_Reduced_Permitted), 
