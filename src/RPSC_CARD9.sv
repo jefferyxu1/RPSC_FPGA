@@ -1,4 +1,4 @@
-module RPSC_CARD9(clk, reset_from_card6_45,
+module RPSC_CARD9(clk, reset,
     i4_FF17_G1_PS_Fault_IN, 
     i17_FF18_G2_PS_Fault_IN,
     i23_FF19_Temp_DR_AMP_IN,
@@ -16,7 +16,7 @@ module RPSC_CARD9(clk, reset_from_card6_45,
     o62_FF23_G1_PS_Over_Temp_LA,
     o78_FF24_G2_PS_Internal_Fault_LA);
 
-    input logic clk, reset_from_card6,
+    input logic clk, reset,
         i4_FF17_G1_PS_Fault_IN, 
         i17_FF18_G2_PS_Fault_IN,
         i23_FF19_Temp_DR_AMP_IN,

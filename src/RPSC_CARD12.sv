@@ -1,5 +1,5 @@
 // multiple reset in this card
-module RPSC_CARD12(clk, reset_from_card6_45,
+module RPSC_CARD12(clk, reset,
                     i4_FF41_U_CA_Low_IN, 
                     i17_FF42_I_CA_High_IN,
                     i23_FF43_U_G1_Low_IN,
@@ -17,7 +17,7 @@ module RPSC_CARD12(clk, reset_from_card6_45,
                     o65_FF47_DC_PS_Low_OUT, o62_FF47_DC_PS_Low_LA,
                     o78_FF48_Alarm_LA);
 
-    input logic clk, reset_from_card6,
+    input logic clk, reset,
                 i4_FF41_U_CA_Low_IN, 
                 i17_FF42_I_CA_High_IN,
                 i23_FF43_U_G1_Low_IN,
