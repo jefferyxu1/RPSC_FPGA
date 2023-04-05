@@ -1,12 +1,12 @@
 module RPSC_CARD3(
-    clk, reset, i15_AN_PS, i10_I_AN_High, i9_I_G2_High, i8_DC_PS, i7_U_AN_LOW, 
+    clk, reset, i15_AN_PS, i10_I_AN_High, i9_I_G2_High, i8_DC_PS, i7_U_AN_Low, 
     i6_Card_POS, i5_Emergency, i4_U_G2_Low, i18_G2_PS_ACT, i32_G_U2_Low, 
     i51_Card_POS, i50_Emergency, i49_DRAC_Overtemp, i59_DR_AMP, o13_Not_Alarm, 
     o14_Not_ON_PERM, o39_Ground_Hold_OK, o19_Not_G2_PS_ON, o36_Not_G2_OK, 
     o33_Not_U_G2_Low, o55_Not_Alarm, o47_Not_ON_PERM, o73_Not_DR_AMP_OK, o62_DR_AMP_ON, o78_GR_OK_Modified;
 );
     input logic clk, reset;
-    input logic i15_AN_PS, i10_I_AN_High, i9_I_G2_High, i8_DC_PS, i7_U_AN_LOW, i6_Card_POS, i5_Emergency, i4_U_G2_Low, i18_G2_PS_ACT, i32_G_U2_Low; //i18+LPF
+    input logic i15_AN_PS, i10_I_AN_High, i9_I_G2_High, i8_DC_PS, i7_U_AN_Low, i6_Card_POS, i5_Emergency, i4_U_G2_Low, i18_G2_PS_ACT, i32_G_U2_Low; //i18+LPF
     input logic i51_Card_POS, i50_Emergency, i49_DRAC_Overtemp, i59_DR_AMP; //i59+LPF
     output logic o13_Not_Alarm, o14_Not_ON_PERM, o39_Ground_Hold_OK, o19_Not_G2_PS_ON, o36_Not_G2_OK, o33_Not_U_G2_Low;
     output logic o55_Not_Alarm, o47_Not_ON_PERM, o73_Not_DR_AMP_OK, o62_DR_AMP_ON, o78_GR_OK_Modified;
@@ -15,7 +15,7 @@ module RPSC_CARD3(
     logic Not_Alarm2;
 
     // Schematic card 3 - 1
-    assign Not_Alarm = ~(i10_I_AN_High | i9_I_G2_High | i8_DC_PS | i7_U_AN_LOW | i6_Card_POS | i5_Emergency | i4_U_G2_Low);
+    assign Not_Alarm = ~(i10_I_AN_High | i9_I_G2_High | i8_DC_PS | i7_U_AN_Low | i6_Card_POS | i5_Emergency | i4_U_G2_Low);
     assign Ground_Hold_OK = Not_Alarm & i15_AN_PS;
     assign SR2s_in = i18_G2_PS_ACT & Not_Alarm;
 

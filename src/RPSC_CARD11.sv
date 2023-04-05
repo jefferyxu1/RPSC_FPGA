@@ -1,3 +1,4 @@
+// TODO: o78 FF40 existed?
 module RPSC_CARD11(clk, reset,
                     i4_FF33_G2_ON_PERM_IN,
                     i17_FF34_G2_ON_IN,
