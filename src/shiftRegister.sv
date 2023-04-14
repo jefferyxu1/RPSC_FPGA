@@ -1,4 +1,4 @@
-module shiftRegister #(parameter N = 64) (on, in, reset, clk);
+module shiftRegister #(parameter N = 4) (on, in, reset, clk);
     input logic in, clk, reset;
     output logic on;
 
@@ -16,8 +16,33 @@ module shiftRegister #(parameter N = 64) (on, in, reset, clk);
         end
     end
 
-    always_comb begin
-        for (int i = 0; i < N - 1; i++)
-            on = regs[i] & regs[i + 1];
+    assign on = &regs;
+
+endmodule
+
+module shiftRegister_testbench();
+    logic in, clk, reset;
+    logic on;
+
+    shiftRegister dut (.*);
+
+    parameter CLOCK_PERIOD = 1000;
+    integer i;
+    
+    // simulated clock
+    initial begin
+        clk <= 0;
+        forever #(CLOCK_PERIOD/2) clk <= ~clk;
+    end // initial
+
+    initial begin
+        reset <= 1'b1; @(posedge clk);
+        reset <= 1'b0;
+        in <= 1'b1;
+        repeat(4) @(posedge clk);
+        in <= 1'b0; @(posedge clk);
+        in <= 1'b1;
+        repeat(5) @(posedge clk);
+        $stop;
     end
 endmodule
