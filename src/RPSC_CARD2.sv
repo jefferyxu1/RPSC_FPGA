@@ -91,7 +91,7 @@ module RPSC_CARD2_testbench();
         i32_G_U1_Low = 1'b1;
         repeat(5) @(posedge clk);
         i = 4;
-        i42_Not_OT_AN_Ready = 1'b1;
+        {i72_U_AN_Low, i59_AN_PS_ACT, i42_Not_OT_AN_Ready} = 3'b111;
         repeat(5) @(posedge clk);
         $stop;
     end
