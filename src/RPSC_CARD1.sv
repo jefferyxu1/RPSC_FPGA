@@ -24,9 +24,10 @@ module RPSC_CARD1(o19_FAN_ON, o14_FAN_ON_PERM, o55_Not_Alarm,
     assign andControl = norControl & i59_CA_PS_ACT;
 
     // Using smaller parameter when testing
-    shiftRegister #(.N(4)) check_4_second (.on(on_4s), .in(andControl), .clk(clk), .reset(reset));
-    shiftRegister #(.N(16)) check_60_second(.on(on_60s), .in(on_4s), .clk(clk), .reset(reset));
-    
+    // Assume clock period 1.28 us
+    timer #(.WIDTH(22)) timer4s (.clk(clk), .reset(reset), .target(22'd3125000), .in(andControl), .hit_target(on_4s));
+    special_60s_timer timer60s (.clk(clk), .reset(reset), .in(on_4s), .hit_target(on_60s));
+
     assign o55_Not_Alarm = norStatus;
     assign o47_CA_ON_PERM = ~norControl;
     assign o78_Modified = norControl;
