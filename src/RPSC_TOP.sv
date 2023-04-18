@@ -238,6 +238,7 @@ module RPSC_TOP(clk, reset);
     RPSC_CARD7 card7 (
         .clk(clk), 
         .reset(reset), 
+        .LA_Test(LA_TEST),
         .i4_FF1_Emergency_IN(C6_o47_Emergency_to_C7_i4_FF1_Emergency_IN), 
         .i17_FF2_Card_POS_IN(i_Card_POS), // from analog card to make sure all cards are connected
         .i23_FF3_Air_Grid_IN(i_EP1_10), 
@@ -268,6 +269,7 @@ module RPSC_TOP(clk, reset);
     RPSC_CARD8 card8 (
         .clk(clk), 
         .reset(reset),
+        .LA_Test(LA_TEST),
         .i4_FF9_HV_Connector_IN(i_EP1_20),
         .i17_FF10_G1_PS_Local_IN(i_EP2_11),
         .i23_FF11_Anode_PS_Local_IN(i_EP3_11),
@@ -293,6 +295,7 @@ module RPSC_TOP(clk, reset);
     RPSC_CARD9 card9 (
         .clk(clk), 
         .reset(reset),
+        .LA_Test(LA_TEST),
         .i4_FF17_G1_PS_Fault_IN(i_EP2_12), 
         .i17_FF18_G2_PS_Fault_IN(i_EP4_12),
         .i23_FF19_Temp_DR_AMP_IN(i_EP5_12),
@@ -318,6 +321,7 @@ module RPSC_TOP(clk, reset);
     RPSC_CARD10 card10 (
         .clk(clk), 
         .reset(reset),
+        .LA_Test(LA_TEST),
         .i4_FF25_FAN_ON_PERM_IN(C1_o14_FAN_ON_PERM_to_C10_i4_FF25_FAN_ON_PERM_IN),
         .i17_FF26_FAN_ON_IN(C1_o19_FAN_ON_to_C1_i54_C10_i17_C18_i4_FAN_ON),
         .i23_FF27_CA_ON_PERM_IN(C1_o47_CA_ON_PERM_to_C10_i23_FF27_CA_ON_PERM_IN),
@@ -341,6 +345,7 @@ module RPSC_TOP(clk, reset);
     RPSC_CARD11 card11 (
         .clk(clk), 
         .reset(reset),
+        .LA_Test(LA_TEST),
         .i4_FF33_G2_ON_PERM_IN(C3_o14_Not_ON_PERM_to_C11_i4_FF33_G2_ON_PERM_IN),
         .i17_FF34_G2_ON_IN(C3_o19_Not_G2_PS_ON_to_C11_i17_C18_i18_G2_ON),
         .i23_FF35_DR_AMP_ON_PERM_IN(C3_o47_Not_ON_PERM_to_C11_i23_FF35_DR_AMP_ON_PERM_IN),
@@ -369,6 +374,7 @@ module RPSC_TOP(clk, reset);
     RPSC_CARD12 card12 (
         .clk(clk), 
         .reset(reset),
+        .LA_Test(LA_TEST),
         .i4_FF41_U_CA_Low_IN(C1_o77_U_CA_Low_to_C12_i4_FF41_U_CA_Low_IN), 
         .i17_FF42_I_CA_High_IN(C1_o70_I_CA_High_to_C12_i17_FF42_I_CA_High_IN),
         .i23_FF43_U_G1_Low_IN(C2_o33_Not_U_G1_Low_to_C12_i23_FF43_U_G1_Low_IN),
