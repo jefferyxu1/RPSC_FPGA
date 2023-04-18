@@ -11,22 +11,22 @@ module RPSC_CARD3(
     output logic o13_Not_Alarm, o14_Not_ON_PERM, o39_Ground_Hold_OK, o19_Not_G2_PS_ON, o36_Not_G2_OK, o33_Not_U_G2_Low;
     output logic o55_Not_Alarm, o47_Not_ON_PERM, o73_Not_DR_AMP_OK, o62_DR_AMP_ON, o78_GR_OK_Modified;
 
-    logic Not_Alarm, Ground_Hold_OK, SR2s_in, SR2s_out;
+    logic Not_Alarm, Ground_Hold_OK, TM2s_in, TM2s_out;
     logic Not_Alarm2;
 
     // Schematic card 3 - 1
     assign Not_Alarm = ~(i10_I_AN_High | i9_I_G2_High | i8_DC_PS | i7_U_AN_Low | i6_Card_POS | i5_Emergency | i4_U_G2_Low);
     assign Ground_Hold_OK = Not_Alarm & (~i15_AN_PS);
-    assign SR2s_in = i18_G2_PS_ACT & Ground_Hold_OK;
-
-    shiftRegister #(.N(128)) check_2_second (.on(SR2s_out), .in(SR2s_in), .clk(clk), .reset(reset));
+    assign TM2s_in = i18_G2_PS_ACT & Ground_Hold_OK;
+    
+    timer #(.WIDTH(21)) timer2s (.clk(clk), .reset(reset), .target(21'd1562500), .in(TM2s_in), .hit_target(TM2s_out));
 
     assign o13_Not_Alarm = Not_Alarm;
     assign o39_Ground_Hold_OK = Ground_Hold_OK; //+transistor
     assign o14_Not_ON_PERM = ~Ground_Hold_OK;
     assign o19_Not_G2_PS_ON = ~i18_G2_PS_ACT;
-    assign o36_Not_G2_OK = ~SR2s_out;
-    assign o33_Not_U_G2_Low = ~(SR2s_out & i32_G_U2_Low);
+    assign o36_Not_G2_OK = ~TM2s_out;
+    assign o33_Not_U_G2_Low = ~(TM2s_out & i32_G_U2_Low);
 
     // Schematic card 3 - 2
     assign Not_Alarm2 = ~(i51_Card_POS | i50_Emergency | i49_DRAC_Overtemp);
