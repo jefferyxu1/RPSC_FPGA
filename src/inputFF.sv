@@ -2,16 +2,16 @@ module inputFF(clk, reset, out, in);
     input logic, clk, reset, in;
     output logic out;
 
-    logic ff1;
+    logic intermediate;
 
     always_ff @(posedge clk) begin
         if (reset) begin
-            ff1 <= 1'b0;
+            intermediate <= 1'b0;
             out <= 1'b0;
         end
         else begin
-            ff1 <= in;
-            out <= ff1;
+            intermediate <= in;
+            out <= intermediate;
         end
     end
 

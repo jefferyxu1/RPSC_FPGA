@@ -4,7 +4,7 @@ module FF (out, LA, in, reset, LA_Test, clk);
 
     assign LA = out | LA_Test;
 
-    always_ff (posedge clk) begin
+    always_ff @(posedge clk) begin
         if (reset)
             out <= 1'b0;
         else

@@ -1,12 +1,12 @@
 `timescale 1ns/10ps
 // TODO: Figure out Input pin 12, 17, and 34
 
-module RPSC_CARD18 (i3_Not_DR_AMP_ON, i4_Not_FAN_ON, i5_Not_G1_ON, i6_Not_CA_ON, i34_Not_ANY_HV_GO_OFF,
-					i17_PS_ON, i18_Not_G2_ON, i19_Not_Anode_ON, i77_Not_RF_RED, i75_Not_RF_PERM, i73_Not_AN_HV_Ready,
+module RPSC_CARD18 (i3_Not_DR_AMP_ON, i4_Not_FAN_ON, i5_Not_G1_ON, i6_Not_CA_ON, i12_Not_ANY_SB_GO_OFF, i34_Not_ANY_HV_GO_OFF,
+					i18_Not_G2_ON, i19_Not_Anode_ON, i77_Not_RF_RED, i75_Not_RF_PERM, i73_Not_AN_HV_Ready,
 					o47_Not_SB_ON, o42_Not_SB_OFF, o46_Not_HV_ON, o45_Not_HV_ON, o78_Not_RF_PERM, o76_Not_RF_PERM, o74_Not_HV_Ready);
 
-	input  logic i3_Not_DR_AMP_ON, i4_Not_FAN_ON, i5_Not_G1_ON, i6_Not_CA_ON, i34_Not_ANY_HV_GO_OFF;
-	input  logic i17_PS_ON, i18_Not_G2_ON, i19_Not_Anode_ON, i77_Not_RF_RED, i75_Not_RF_PERM, i73_Not_AN_HV_Ready;
+	input  logic i3_Not_DR_AMP_ON, i4_Not_FAN_ON, i5_Not_G1_ON, i6_Not_CA_ON, i12_Not_ANY_SB_GO_OFF, i34_Not_ANY_HV_GO_OFF;
+	input  logic i18_Not_G2_ON, i19_Not_Anode_ON, i77_Not_RF_RED, i75_Not_RF_PERM, i73_Not_AN_HV_Ready;
 	output logic o47_Not_SB_ON, o42_Not_SB_OFF, o46_Not_HV_ON, o45_Not_HV_ON, o78_Not_RF_PERM, o76_Not_RF_PERM, o74_Not_HV_Ready;
 	
 	assign o47_Not_SB_ON = i4_Not_FAN_ON | i5_Not_G1_ON | i6_Not_CA_ON;
