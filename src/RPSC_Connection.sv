@@ -1,3 +1,4 @@
+`timescale 1ns/1ns
 module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST, 
                 i_EP1_5, i_EP1_4, i_EP1_37, i_C14_46_I_CA_High, i_C14_74_U_CA_Low,
                 o_C1_BJT_78,
@@ -21,7 +22,7 @@ module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST,
                 o_LA_I_G2_High, o_LA_FAN_OFF_Delay,
 
                 i_EP2_12, i_EP4_12, i_EP5_12, i_EP3_12, i_EP3_19, i_EP2_16, i_EP2_14, i_EP4_16,                    
-                o_LA_G1_PS_Fault, o_LA_I_G2_High, o_LA_TEMP_DR_AMP, o_LA_Anode_PS_Fault, o_LA_AN_PS_Over_Current,
+                o_LA_G1_PS_Fault, o_LA_G2_PS_Fault, o_LA_TEMP_DR_AMP, o_LA_Anode_PS_Fault, o_LA_AN_PS_Over_Current,
                 o_LA_I_G1_High, o_LA_G1_PS_Over_Temp, o_LA_G2_PS_Internal_Fault,
 
                 o_LA_FAN_ON_PERM, o_LA_FAN_ON, o_EP1_39, o_LA_CA_PS_ON_PERM, o_LA_CA_PS_ON, o_EP1_40, 
@@ -90,7 +91,7 @@ module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST,
 
     
 // ------------------------------------------------------
-    // wire originate from this card declares here
+    // wire originate from the same card declares in the same sector
     logic C1_o19_FAN_ON_to_C1_i54_C10_i17_C18_i4_FAN_ON,
           C1_o14_FAN_ON_PERM_to_C10_i4_FF25_FAN_ON_PERM_IN,
           C1_o55_Not_Alarm_to_C6_i34_CA_PS_Control,
@@ -101,6 +102,68 @@ module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST,
           C1_o70_I_CA_High_to_C12_i17_FF42_I_CA_High_IN,
           C1_o77_U_CA_Low_to_C12_i4_FF41_U_CA_Low_IN;
 
+//----------------------------------------------------------
+    logic C2_o19_Not_G1_ON_to_C10_i57_C18_i5_G1_ON,
+          C2_o13_Not_Alarm_to_C6_i25_G1_PS_Control,
+          C2_o14_Not_G1_ON_PERM_to_C10_i43_FF29_G1_ON_PERM_IN,
+          C2_o36_Not_G1_OK_to_C1_i53_C2_i53_C5_i53_G1_OK,
+          C2_o33_Not_U_G1_Low_to_C12_i23_FF43_U_G1_Low_IN,
+          C2_o55_Not_Alarm_to_C6_i32_Anode_PS_Control,
+          C2_o62_AN_ON_to_C5_i42_C10_i76_C18_i19_Anode_ON,
+          C2_o47_ON_PERM_C10_i63_C18_i73_Anode_ON_PERM,
+          C2_o75_Not_AN_OK_to_C3_i15_AN_PS,
+          C2_o70_Not_U_AN_Low_to_C12_i37_FF44_U_AN_Low_IN;
+
+//------------------------------------------------------------
+    logic C3_o13_Not_Alarm_to_C6_i24_G2_PS_Control,
+          C3_o14_Not_ON_PERM_to_C11_i4_FF33_G2_ON_PERM_IN,
+          C3_o19_Not_G2_PS_ON_to_C11_i17_C18_i18_G2_ON,
+          C3_o36_Not_G2_OK_to_C5_i11_Not_G2_OK,
+          C3_o33_Not_U_G2_Low_to_C12_i57_FF46_U_G2_Low_IN,
+          C3_o55_Not_Alarm_to_C6_i36_DR_AMP_Control,
+          C3_o47_Not_ON_PERM_to_C11_i23_FF35_DR_AMP_ON_PERM_IN,
+          C3_o73_Not_DR_AMP_OK_to_C5_i12_i54_Not_DR_AMP_OK,
+          C3_o62_DR_AMP_ON_to_C11_i37_C18_i3_DR_AMP_ON;
+
+//------------------------------------------------------------
+    logic C5_o14_FF38_to_C11_i57_C18_i75_RF_PERM,
+          C5_o13_Not_Alarm_to_C6_i37_RF_PERMIT_TED_Control,
+          C5_o47_FF37_to_C11_i43_C18_i77_RF_Reduced_Permitted;
+
+//------------------------------------------------------------
+    logic C6_o77_I_AN_HIGH_to_C12_i43_FF45_I_AN_High_IN,
+          C6_o47_Emergency_to_C7_i4_FF1_Emergency_IN,
+          C6_o38_Not_Alarm_to_C12_i76_FF48_Alarm_IN;
+
+//------------------------------------------------------------
+    logic C7_o6_FF1_Emergency_OUT_to_C2_i9_C2_i49_C3_i5_C3_i50_C5_i6_C5_i50_Emergency,
+          C7_o15_FF2_Card_POS_OUT_to_C1_i51_C2_i10_C2_i44_C3_i6_C3_i51_C5_i7_Card_POS,
+          C7_o25_FF3_Air_Grid_OUT_to_C1_i50_C5_i10_C5_i51_Air_Grid,
+          C7_o35_FF4_Air_Anode_OUT_to_C5_i9_FF4,
+          C7_o45_FF5_Water_Heat_Exchanger_OUT_C1_i48_Water_Grid,
+          C7_o55_FF6_Water_Anode_OUT_to_C1_49_C5_8_Water_Anode,
+          C7_o65_FF7_Door_PAMP_OUT_to_C2_i8_C2_i51_Door_PAMP,
+          C7_o74_FF8_GR_SW_OUT_to_C2_i48_GR_SW_PAMP;
+
+//------------------------------------------------------------
+    logic C8_o6_FF9_HV_Connector_OUT_to_C2_i45_HV_Connector;
+
+//------------------------------------------------------------
+    logic C9_o6_FF17_G1_PS_Fault_OUT_to_C2_i7_I_G1_High,
+          C9_o15_FF18_G2_PS_Fault_OUT_to_C3_i9_I_G2_High,
+          C9_o25_FF19_Temp_DR_AMP_OUT_to_C3_i49_DRAC_Overtemp,
+          C9_o35_FF20_AN_PS_Fault_OUT_to_C2_i50_Anode_PS_Fault;
+
+//------------------------------------------------------------
+    logic C12_o6_FF41_U_CA_Low_OUT_to_C1_i45_U_CA_Low,
+          C12_o15_FF42_I_CA_High_OUT_to_C1_i44_I_CA_High,
+          C12_o25_FF43_U_G1_Low_OUT_to_C2_i5_U_G1_Low,
+          C12_o35_FF44_U_AN_Low_OUT_to_C3_i7_U_AN_Low,
+          C12_o45_FF45_I_AN_High_OUT_to_C3_i10_I_AN_High,
+          C12_o55_FF46_U_G2_Low_OUT_to_C3_i4_U_G2_Low,
+          C12_o65_FF47_DC_PS_Low_OUT_to_C1_i46_C2_i6_C2_i46_C3_i8_DC_PS;
+
+//------------------------------------------------------------
 
     RPSC_CARD1 card1 (
         .o19_FAN_ON(C1_o19_FAN_ON_to_C1_i54_C10_i17_C18_i4_FAN_ON), 
@@ -131,18 +194,7 @@ module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST,
         .i76_U_CA_Low(i_C14_74_U_CA_Low));
 
 
-//----------------------------------------------------------
-    logic C2_o19_Not_G1_ON_to_C10_i57_C18_i5_G1_ON,
-          C2_o13_Not_Alarm_to_C6_i25_G1_PS_Control,
-          C2_o14_Not_G1_ON_PERM_to_C10_i43_FF29_G1_ON_PERM_IN,
-          C2_o36_Not_G1_OK_to_C1_i53_C2_i53_C5_i53_G1_OK,
-          C2_o33_Not_U_G1_Low_to_C12_i23_FF43_U_G1_Low_IN,
-          C2_o55_Not_Alarm_to_C6_i32_Anode_PS_Control,
-          C2_o62_AN_ON_to_C5_i42_C10_i76_C18_i19_Anode_ON,
-          // C2_o57_Not_TH_AN_Ready connects to o_EP1_1
-          C2_o47_ON_PERM_C10_i63_C18_i73_Anode_ON_PERM,
-          C2_o75_Not_AN_OK_to_C3_i15_AN_PS,
-          C2_o70_Not_U_AN_Low_to_C12_i37_FF44_U_AN_Low_IN;
+
 
     RPSC_CARD2 card2 (
         .clk(clk), 
@@ -181,16 +233,7 @@ module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST,
         .o70_Not_U_AN_Low(C2_o70_Not_U_AN_Low_to_C12_i37_FF44_U_AN_Low_IN), 
         .o78_Not_GR_OK(o_C2_BJT_78));
 
-//------------------------------------------------------------
-    logic C3_o13_Not_Alarm_to_C6_i24_G2_PS_Control,
-          C3_o14_Not_ON_PERM_to_C11_i4_FF33_G2_ON_PERM_IN,
-          C3_o19_Not_G2_PS_ON_to_C11_i17_C18_i18_G2_ON,
-          C3_o36_Not_G2_OK_to_C5_i11_Not_G2_OK,
-          C3_o33_Not_U_G2_Low_to_C12_i57_FF46_U_G2_Low_IN,
-          C3_o55_Not_Alarm_to_C6_i36_DR_AMP_Control,
-          C3_o47_Not_ON_PERM_to_C11_i23_FF35_DR_AMP_ON_PERM_IN,
-          C3_o73_Not_DR_AMP_OK_to_C5_i12_i54_Not_DR_AMP_OK,
-          C3_o62_DR_AMP_ON_to_C11_i37_C18_i3_DR_AMP_ON;
+
 
     RPSC_CARD3 card3 (
         .clk(clk), 
@@ -220,10 +263,7 @@ module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST,
         .o73_Not_DR_AMP_OK(C3_o73_Not_DR_AMP_OK_to_C5_i12_i54_Not_DR_AMP_OK), 
         .o62_DR_AMP_ON(C3_o62_DR_AMP_ON_to_C11_i37_C18_i3_DR_AMP_ON), 
         .o78_GR_OK_Modified(o_C3_BJT_78));
-//------------------------------------------------------------
-    logic C5_o14_FF38_to_C11_i57_C18_i75_RF_PERM,
-          C5_o13_Not_Alarm_to_C6_i37_RF_PERMIT_TED_Control,
-          C5_o47_FF37_to_C11_i43_C18_i77_RF_Reduced_Permitted;
+
 
     RPSC_CARD5 card5 (
         .i11_Not_G2_OK(C3_o36_Not_G2_OK_to_C5_i11_Not_G2_OK), 
@@ -244,10 +284,7 @@ module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST,
         .o13_Not_Alarm(C5_o13_Not_Alarm_to_C6_i37_RF_PERMIT_TED_Control), 
         .o47_FF37(C5_o47_FF37_to_C11_i43_C18_i77_RF_Reduced_Permitted), 
         .o59_Not_RF_RED(o_EP6_5));
-//------------------------------------------------------------
-    logic C6_o77_I_AN_HIGH_to_C12_i43_FF45_I_AN_High_IN,
-          C6_o47_Emergency_to_C7_i4_FF1_Emergency_IN,
-          C6_o38_Not_Alarm_to_C12_i76_FF48_Alarm_IN;
+
 
     RPSC_CARD6 card6 (
         .i_External(i_C6_External),
@@ -264,15 +301,6 @@ module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST,
         .o47_Emergency(C6_o47_Emergency_to_C7_i4_FF1_Emergency_IN), 
         .o38_Not_Alarm(C6_o38_Not_Alarm_to_C12_i76_FF48_Alarm_IN));
 
-//------------------------------------------------------------
-    logic C7_o6_FF1_Emergency_OUT_to_C2_i9_C2_i49_C3_i5_C3_i50_C5_i6_C5_i50_Emergency,
-          C7_o15_FF2_Card_POS_OUT_to_C1_i51_C2_i10_C2_i44_C3_i6_C3_i51_C5_i7_Card_POS,
-          C7_o25_FF3_Air_Grid_OUT_to_C1_i50_C5_i10_C5_i51_Air_Grid,
-          C7_o35_FF4_Air_Anode_OUT_to_C5_i9_FF4,
-          C7_o45_FF5_Water_Heat_Exchanger_OUT_C1_i48_Water_Grid,
-          C7_o55_FF6_Water_Anode_OUT_to_C1_49_C5_8_Water_Anode,
-          C7_o65_FF7_Door_PAMP_OUT_to_C2_i8_C2_i51_Door_PAMP,
-          C7_o74_FF8_GR_SW_OUT_to_C2_i48_GR_SW_PAMP;
 
     RPSC_CARD7 card7 (
         .clk(clk), 
@@ -302,8 +330,7 @@ module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST,
         .o62_FF7_Door_PAMP_LA(o_LA_Door_PAMP),
         .o74_FF8_GR_SW_OUT(C7_o74_FF8_GR_SW_OUT_to_C2_i48_GR_SW_PAMP), 
         .o78_FF8_GR_SW_LA(o_LA_Ground_SW));
-//------------------------------------------------------------
-    logic C8_o6_FF9_HV_Connector_OUT_to_C2_i45_HV_Connector;
+
     
     RPSC_CARD8 card8 (
         .clk(clk), 
@@ -325,11 +352,7 @@ module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST,
         .o59_FF14_I_G2_High_LA(o_LA_I_G2_High),
         .o78_FF16_FAN_OFF_Delay_LA(o_LA_FAN_OFF_Delay));
 
-//------------------------------------------------------------
-    logic C9_o6_FF17_G1_PS_Fault_OUT_to_C2_i7_I_G1_High,
-          C9_o15_FF18_G2_PS_Fault_OUT_to_C3_i9_I_G2_High,
-          C9_o25_FF19_Temp_DR_AMP_OUT_to_C3_i49_DRAC_Overtemp,
-          C9_o35_FF20_AN_PS_Fault_OUT_to_C2_i50_Anode_PS_Fault;
+
 
     RPSC_CARD9 card9 (
         .clk(clk), 
@@ -346,7 +369,7 @@ module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST,
         .o6_FF17_G1_PS_Fault_OUT(C9_o6_FF17_G1_PS_Fault_OUT_to_C2_i7_I_G1_High), 
         .o3_FF17_G1_PS_Fault_LA(o_LA_G1_PS_Fault),
         .o15_FF18_G2_PS_Fault_OUT(C9_o15_FF18_G2_PS_Fault_OUT_to_C3_i9_I_G2_High), 
-        .o19_FF18_G2_PS_Fault_LA(o_LA_I_G2_High),
+        .o19_FF18_G2_PS_Fault_LA(o_LA_G2_PS_Fault),
         .o25_FF19_Temp_DR_AMP_OUT(C9_o25_FF19_Temp_DR_AMP_OUT_to_C3_i49_DRAC_Overtemp), 
         .o22_FF19_Temp_DR_AMP_LA(o_LA_TEMP_DR_AMP),
         .o35_FF20_AN_PS_Fault_OUT(C9_o35_FF20_AN_PS_Fault_OUT_to_C2_i50_Anode_PS_Fault), 
@@ -400,14 +423,7 @@ module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST,
         .o59_FF38_RF_Permitted_LA(o_LA_RF_Permitted),
         .o62_FF39_CA_Delay_LA(o_LA_CA_Delay));
 
-//------------------------------------------------------------
-    logic C12_o6_FF41_U_CA_Low_OUT_to_C1_i45_U_CA_Low,
-          C12_o15_FF42_I_CA_High_OUT_to_C1_i44_I_CA_High,
-          C12_o25_FF43_U_G1_Low_OUT_to_C2_i5_U_G1_Low,
-          C12_o35_FF44_U_AN_Low_OUT_to_C3_i7_U_AN_Low,
-          C12_o45_FF45_I_AN_High_OUT_to_C3_i10_I_AN_High,
-          C12_o55_FF46_U_G2_Low_OUT_to_C3_i4_U_G2_Low,
-          C12_o65_FF47_DC_PS_Low_OUT_to_C1_i46_C2_i6_C2_i46_C3_i8_DC_PS;
+
 
 
     RPSC_CARD12 card12 (
