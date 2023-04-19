@@ -36,7 +36,7 @@ module RPSC_CARD12(clk, reset, LA_Test,
                  o65_FF47_DC_PS_Low_OUT, o62_FF47_DC_PS_Low_LA,
                  o78_FF48_Alarm_LA;
 
-    FF FF41 (
+    FF_Hold_Error FF41 (
         .out(o6_FF41_U_CA_Low_OUT), 
         .LA(o3_FF41_U_CA_Low_LA), 
         .in(i4_FF41_U_CA_Low_IN), 
@@ -44,7 +44,7 @@ module RPSC_CARD12(clk, reset, LA_Test,
         .LA_Test(LA_Test), 
         .clk(clk));
 
-    FF FF42 (
+    FF_Hold_Error FF42 (
         .out(o15_FF42_I_CA_High_OUT), 
         .LA(o19_FF42_I_CA_High_LA), 
         .in(i17_FF42_I_CA_High_IN), 
@@ -52,7 +52,7 @@ module RPSC_CARD12(clk, reset, LA_Test,
         .LA_Test(LA_Test), 
         .clk(clk));
 
-    FF FF43 (
+    FF_Hold_Error FF43 (
         .out(o25_FF43_U_G1_Low_OUT), 
         .LA(o22_FF43_U_G1_Low_LA), 
         .in(i23_FF43_U_G1_Low_IN), 
@@ -68,7 +68,7 @@ module RPSC_CARD12(clk, reset, LA_Test,
         .LA_Test(LA_Test), 
         .clk(clk));
     
-    FF FF45 (
+    FF_Hold_Error FF45 (
         .out(o45_FF45_I_AN_High_OUT), 
         .LA(o42_FF45_I_AN_High_LA), 
         .in(i43_FF45_I_AN_High_IN), 
@@ -76,7 +76,7 @@ module RPSC_CARD12(clk, reset, LA_Test,
         .LA_Test(LA_Test), 
         .clk(clk));
     
-    FF FF46 (
+    FF_Hold_Error FF46 (
         .out(o55_FF46_U_G2_Low_OUT), 
         .LA(o59_FF46_U_G2_Low_LA), 
         .in(i57_FF46_U_G2_Low_IN), 
@@ -84,7 +84,7 @@ module RPSC_CARD12(clk, reset, LA_Test,
         .LA_Test(LA_Test), 
         .clk(clk));
 
-    FF FF47 (
+    FF_Hold_Error FF47 (
         .out(o65_FF47_DC_PS_Low_OUT), 
         .LA(o62_FF47_DC_PS_Low_LA), 
         .in(i63_FF47_DC_PS_Low_IN), 

@@ -41,11 +41,11 @@ module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST,
 
     // Naming Convention 
     // input/output examples: i_EP1_1, o_EP1_2
-    // if EP is not a real IO, then EP1_3
+    // if EP is not a real IO, then no i_ or o_, just EP
     // Interconnecting different cards: C1_o55_Not_Alarm_to_C1_i48_Water_Grid, direction: output to input
 
     // general
-    input logic clk, reset, reset_hold_error;
+    input logic clk, reset, reset_hold_error; // reset_hold_error is the reset for FF that orignally resets from card 6 pin 45
     // lamp test
     input logic LA_TEST;
     // Card 1

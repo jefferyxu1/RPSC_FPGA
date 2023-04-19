@@ -70,7 +70,7 @@ module RPSC_CARD7(clk, reset, LA_Test,
         .LA_Test(LA_Test), 
         .clk(clk));
     
-    FF FF5 (
+    FF_Hold_Error FF5 (
         .out(o45_FF5_Water_Heat_Exchanger_OUT), 
         .LA(o42_FF5_Water_Heat_Exchanger_LA), 
         .in(i43_FF5_Water_Heat_Exchanger_IN), 
@@ -78,7 +78,7 @@ module RPSC_CARD7(clk, reset, LA_Test,
         .LA_Test(LA_Test), 
         .clk(clk));
     
-    FF FF6 (
+    FF_Hold_Error FF6 (
         .out(o55_FF6_Water_Anode_OUT), 
         .LA(o59_FF6_Water_Anode_LA), 
         .in(i57_FF6_Water_Anode_IN), 
