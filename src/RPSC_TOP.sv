@@ -414,9 +414,9 @@ module RPSC_TOP(clk, reset);
         .o47_Not_SB_ON(o_EP7_36), 
         .o42_Not_SB_OFF(o_EP7_37), 
         .o46_Not_HV_ON(o_EP7_44), 
-        .o45_Not_HV_ON(o_EP7_43), 
-        .o78_Not_RF_PERM(o_EP7_41), 
-        .o76_Not_RF_PERM(o_EP7_40), 
+        .o45_Not_HV_OFF(o_EP7_43), 
+        .o78_Not_RED_RF(o_EP7_41), 
+        .o76_Not_Full_RF(o_EP7_40), 
         .o74_Not_HV_Ready(o_EP7_39));
 
 //------------------------------------------------------------
