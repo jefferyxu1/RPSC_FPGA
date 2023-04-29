@@ -6,4 +6,9 @@
 !README.md
 !/*.sv
 !/*.ipynb
-!/*.py
+
+!/script/
+!/script/*.ipynb
+
+!/src/
+!/src/*.sv
