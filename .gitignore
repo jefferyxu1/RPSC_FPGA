@@ -9,6 +9,7 @@
 
 !/script/
 !/script/*.ipynb
+!/script/*.txt
 
 !/src/
 !/src/*.sv
