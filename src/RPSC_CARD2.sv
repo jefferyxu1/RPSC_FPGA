@@ -21,7 +21,7 @@ module RPSC_CARD2(
     assign Not_G1_ON_PERM = i10_Card_POS | i9_Emergency | i8_Door_PAMP | i7_I_G1_High | i6_DC_PS | i5_U_G1_Low;
     assign Not_Alarm = ~Not_G1_ON_PERM;
     assign TM2s_in = i18_G1_PS_ACT & Not_Alarm;
-    assign Not_G1_OK = ~ TM2s_out;
+    assign Not_G1_OK = ~TM2s_out;
 
     // 2 second timer when clk period is 1.28us
     // timer #(.WIDTH(21)) timer2s (.clk(clk), .reset(reset), .target(21'd1562500), .in(TM2s_in), .hit_target(TM2s_out));
@@ -32,28 +32,27 @@ module RPSC_CARD2(
     assign o14_Not_G1_ON_PERM = ~i18_G1_PS_ACT;
     assign o36_Not_G1_OK = Not_G1_OK;
     assign o33_Not_U_G1_Low = ~(TM2s_out & i32_G_U1_Low);
+    assign o39_GR_OK_Modified = i18_G1_PS_ACT;
 
     // Schematic card 2 - 2
     assign Not_Alarm2 = ~(i51_Door_PAMP | i50_Anode_PS_Fault | i49_Emergency | i48_GR_SW_PAMP | i46_DC_PS | i45_HV_Connector | i44_Card_POS);
     assign TH_AN_Ready = (~i53_Not_G1_OK) & (~i54_Not_CA_OK) & Not_Alarm2;
     assign Not_ON_PERM = i42_Not_OT_AN_Ready & TH_AN_Ready;
     assign Node1 = Not_ON_PERM & i59_AN_PS_ACT;
-    assign TM4s_in = ~(i72_U_AN_Low & Node1);
+    assign TM4s_in = i72_U_AN_Low & Node1;
 
     // when clk period is 1.28us
     // timer #(.WIDTH(22)) timer4s (.clk(clk), .reset(reset), .target(22'd3125000), .in(TM4s_in), .hit_target(TM4s_out));
     timer #(.WIDTH(4)) timer4s_test (.clk(clk), .reset(reset), .target(4'd15), .in(TM4s_in), .hit_target(TM4s_out));
-    
 
     assign o55_Not_Alarm = Not_Alarm2;
     assign o62_AN_ON = ~i59_AN_PS_ACT;
     assign o57_Not_TH_AN_Ready = ~TH_AN_Ready;
     assign o47_ON_PERM = ~Not_ON_PERM;
     assign o75_Not_AN_OK = Node1 & TM4s_out;
-    assign o70_Not_U_AN_Low = TM4s_in;
-    assign o78_Not_GR_OK = TH_AN_Ready;
-    assign o39_GR_OK_Modified = i18_G1_PS_ACT;
-
+    assign o70_Not_U_AN_Low = ~TM4s_in;
+    assign o78_Not_GR_OK = Not_ON_PERM;
+    
 endmodule
 
 module RPSC_CARD2_testbench();
