@@ -1,4 +1,4 @@
-module RPSC_CARD9(clk, reset, LA_Test,
+module RPSC_CARD9(clk, reset, reset_hold_error, LA_Test,
     i4_FF17_G1_PS_Fault_IN, 
     i17_FF18_G2_PS_Fault_IN,
     i23_FF19_Temp_DR_AMP_IN,
@@ -16,7 +16,7 @@ module RPSC_CARD9(clk, reset, LA_Test,
     o62_FF23_G1_PS_Over_Temp_LA,
     o78_FF24_G2_PS_Internal_Fault_LA);
 
-    input logic clk, reset, LA_Test,
+    input logic clk, reset, reset_hold_error, LA_Test,
         i4_FF17_G1_PS_Fault_IN, 
         i17_FF18_G2_PS_Fault_IN,
         i23_FF19_Temp_DR_AMP_IN,
@@ -39,7 +39,7 @@ module RPSC_CARD9(clk, reset, LA_Test,
         .out(o6_FF17_G1_PS_Fault_OUT), 
         .LA(o3_FF17_G1_PS_Fault_LA), 
         .in(i4_FF17_G1_PS_Fault_IN), 
-        .reset(reset), 
+        .reset(reset_hold_error), 
         .LA_Test(LA_Test), 
         .clk(clk));
 
@@ -47,7 +47,7 @@ module RPSC_CARD9(clk, reset, LA_Test,
         .out(o15_FF18_G2_PS_Fault_OUT), 
         .LA(o19_FF18_G2_PS_Fault_LA), 
         .in(i17_FF18_G2_PS_Fault_IN), 
-        .reset(reset), 
+        .reset(reset_hold_error), 
         .LA_Test(LA_Test), 
         .clk(clk));
 
@@ -55,7 +55,7 @@ module RPSC_CARD9(clk, reset, LA_Test,
         .out(o25_FF19_Temp_DR_AMP_OUT), 
         .LA(o22_FF19_Temp_DR_AMP_LA), 
         .in(i23_FF19_Temp_DR_AMP_IN), 
-        .reset(reset), 
+        .reset(reset_hold_error), 
         .LA_Test(LA_Test), 
         .clk(clk));
 
@@ -79,7 +79,7 @@ module RPSC_CARD9(clk, reset, LA_Test,
         .out(), 
         .LA(o59_FF22_I_G1_High_LA), 
         .in(i57_FF22_I_G1_High_IN), 
-        .reset(reset), 
+        .reset(reset_hold_error), 
         .LA_Test(LA_Test), 
         .clk(clk));
 
@@ -87,7 +87,7 @@ module RPSC_CARD9(clk, reset, LA_Test,
         .out(), 
         .LA(o62_FF23_G1_PS_Over_Temp_LA), 
         .in(i63_FF23_G1_PS_Over_Temp_IN), 
-        .reset(reset), 
+        .reset(reset_hold_error), 
         .LA_Test(LA_Test), 
         .clk(clk));
 
@@ -95,7 +95,7 @@ module RPSC_CARD9(clk, reset, LA_Test,
         .out(), 
         .LA(o78_FF24_G2_PS_Internal_Fault_LA), 
         .in(i76_FF24_G2_PS_Internal_Fault_IN), 
-        .reset(reset), 
+        .reset(reset_hold_error), 
         .LA_Test(LA_Test), 
         .clk(clk));
 
