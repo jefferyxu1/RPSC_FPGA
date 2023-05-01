@@ -19,7 +19,9 @@ module RPSC_CARD3(
     assign Ground_Hold_OK = Not_Alarm & (~i15_AN_PS);
     assign TM2s_in = i18_G2_PS_ACT & Ground_Hold_OK;
     
-    timer #(.WIDTH(21)) timer2s (.clk(clk), .reset(reset), .target(21'd1562500), .in(TM2s_in), .hit_target(TM2s_out));
+    // When clk period is 1.28us
+    // timer #(.WIDTH(21)) timer2s (.clk(clk), .reset(reset), .target(21'd1562500), .in(TM2s_in), .hit_target(TM2s_out));
+    timer #(.WIDTH(4)) timer2s (.clk(clk), .reset(reset), .target(4'd8), .in(TM2s_in), .hit_target(TM2s_out));
 
     assign o13_Not_Alarm = Not_Alarm;
     assign o39_Ground_Hold_OK = Ground_Hold_OK; //+transistor
@@ -31,6 +33,7 @@ module RPSC_CARD3(
     // Schematic card 3 - 2
     assign Not_Alarm2 = ~(i51_Card_POS | i50_Emergency | i49_DRAC_Overtemp);
 
+    assign o78_GR_OK_Modified = Not_Alarm2;
     assign o55_Not_Alarm = Not_Alarm2;
     assign o47_Not_ON_PERM = ~Not_Alarm2;
     assign o62_DR_AMP_ON = ~i59_DR_AMP; 

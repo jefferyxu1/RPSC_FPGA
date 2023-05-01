@@ -35,7 +35,7 @@ module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST,
                 o_LA_U_CA_Low, o_LA_I_CA_High, o_LA_U_G1_Low, o_LA_U_AN_Low, o_LA_I_AN_High, o_LA_U_G2_Low,
                 o_LA_DC_PS_Low, o_LA_Alarm,
 
-                o_EP7_36, o_EP7_37, o_EP7_44, o_EP7_43, o_EP7_41, o_EP7_40, o_EP7_39
+                o_EP7_36, o_EP7_37, o_EP7_38, o_EP7_44, o_EP7_42, o_EP7_43, o_EP7_41, o_EP7_40, o_EP7_39
     );
 
     // Naming Convention 
@@ -85,7 +85,7 @@ module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST,
     output logic o_LA_U_CA_Low, o_LA_I_CA_High, o_LA_U_G1_Low, o_LA_U_AN_Low, o_LA_I_AN_High, o_LA_U_G2_Low,
                     o_LA_DC_PS_Low, o_LA_Alarm;
     // card 18
-    output logic o_EP7_36, o_EP7_37, o_EP7_44, o_EP7_43, o_EP7_41, o_EP7_40, o_EP7_39;
+    output logic o_EP7_38, o_EP7_42, o_EP7_36, o_EP7_37, o_EP7_44, o_EP7_43, o_EP7_41, o_EP7_40, o_EP7_39;
 
     
 // ------------------------------------------------------
@@ -177,7 +177,7 @@ module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST,
         .clk(clk), 
         .reset(reset), 
         .i17_FAN_ON_PERM(i_EP1_5),
-        .i18_FAN_ACT(i_EP1_18),
+        .i18_FAN_ACT(i_EP1_4),
         .i54_FAN_ON(C1_o19_FAN_ON_to_C1_i54_C10_i17_C18_i4_FAN_ON), 
         .i53_Not_G1_OK(C2_o36_Not_G1_OK_to_C1_i53_C2_i53_C5_i53_G1_OK), 
         .i59_CA_PS_ACT(i_EP1_37),  
@@ -454,6 +454,8 @@ module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST,
 
 //------------------------------------------------------------
     RPSC_CARD18 card18 (
+        .clk(clk),
+        .reset(reset),
         .i3_Not_DR_AMP_ON(C3_o62_DR_AMP_ON_to_C11_i37_C18_i3_DR_AMP_ON), 
         .i4_Not_FAN_ON(C1_o19_FAN_ON_to_C1_i54_C10_i17_C18_i4_FAN_ON), 
         .i5_Not_G1_ON(C2_o19_Not_G1_ON_to_C10_i57_C18_i5_G1_ON), 
@@ -463,6 +465,8 @@ module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST,
         .i77_Not_RF_RED(C5_o47_FF37_to_C11_i43_C18_i77_RF_Reduced_Permitted), 
         .i75_Not_RF_PERM(C5_o14_FF38_to_C11_i57_C18_i75_RF_PERM), 
         .i73_Not_AN_HV_Ready(C2_o47_ON_PERM_C10_i63_C18_i73_Anode_ON_PERM),
+        .o12_Not_ANY_SB_GO_OFF(o_EP7_38), 
+        .o34_Not_ANY_HV_GO_OFF(o_EP7_42),
         .o47_Not_SB_ON(o_EP7_36), 
         .o42_Not_SB_OFF(o_EP7_37), 
         .o46_Not_HV_ON(o_EP7_44), 
@@ -513,7 +517,7 @@ module RPSC_Connection_testbench ();
                 o_LA_U_CA_Low, o_LA_I_CA_High, o_LA_U_G1_Low, o_LA_U_AN_Low, o_LA_I_AN_High, o_LA_U_G2_Low,
                 o_LA_DC_PS_Low, o_LA_Alarm,
 
-                i_EP7_38, i_EP7_42,
+                o_EP7_38, o_EP7_42,
                 o_EP7_36, o_EP7_37, o_EP7_44, o_EP7_43, o_EP7_41, o_EP7_40, o_EP7_39;
 
     RPSC_Connection dut (.*);

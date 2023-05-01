@@ -24,7 +24,7 @@ module special_60s_timer(clk, reset, in, hit_target);
 
     always_comb begin
         case (ps)
-            s_start: ns = in ? s_timer : s_start;
+            s_start: ns = in ? s_timer : s_start; // Equivalent: if (ns == 1'b1) s_timer; else s_start;
             s_timer: ns = on60s? s_done : s_timer;
             s_done: ns = s_done;
         endcase
