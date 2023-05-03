@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-// delete reset_test when compiling for FPGA
+// delete reset_test from IO when compiling for FPGA and hardcode to 1'b0
 module RPSC_FPGA_TOP(sys_clk50, reset_test o_HV_ON_BAR, o_HV_OFF_BAR, o_ANY_HV_GO_OFF_BAR, o_RED_RF_BAR, o_FULL_RF_BAR, o_HV_Ready_BAR, o_ANY_SB_GO_OFF_BAR, o_SB_OFF_BAR, o_SB_ON_BAR, i_OT_AN_Ready, o_TH_AN_Ready, i_Card_POS, i_FAN_ACT, i_FAN_ON_PERM, i_FAN_OFF_Delay, i_Air_Grid, i_Air_AN, i_Water_Heat_EXCH, i_Water_AN, i_Door_PAMP, i_GR_SW, i_HV_Connector, i_CA_PS_ACT, o_FAN_ON, o_CA_ON, o_LA_FAN_ON, o_LA_FAN_ON_PERM, o_LA_Grid_ON, o_LA_Grid_ON_PERM, o_LA_Cathode_ON, o_LA_Cathode_ON_PERM, o_LA_Anode_ON, o_LA_Anode_ON_PERM, o_LA_Grid2_ON, o_LA_Grid2_ON_PERM, o_LA_DR_AMP_ON, o_LA_DR_AMP_ON_PERM, o_LA_G2_PS_Internal_Fault, o_C2_RLY_DRAC, o_C2_RLY_G2, o_C2_RLY_AN, o_C2_RLY_G1, o_C2_RLY_CA, i_C2_RLY_EM, i_C2_RLY_RESET, i_LA_TEST, i_U_G1_LOW, i_U_G2_LOW, i_U_AN_LOW, i_U_CA_LOW, i_I_AN_HIGH_5A, i_I_AN_HIGH_6A, i_DC_PS_LOW, i_I_CA_HIGH, o_LA_Air_Grid, o_LA_Air_Anode, o_LA_Air_Water_Anode, o_LA_Door_PAMP, o_LA_GR_SW_PAMP, o_LA_HV_Connector, o_LA_TEMP_DR_AMP, o_LA_AN_PS_Fault, o_LA_AN_PS_OC, o_LA_I_G1_HIGH, o_LA_G1_PS_OT, o_LA_U_CA_LOW, o_LA_I_CA_HIGH, o_LA_U_G1_LOW, o_LA_G1_PS_Fault, o_LA_U_AN_LOW, o_LA_I_AN_HIGH, o_LA_U_G2_LOW, o_LA_G2_PS_Fault, o_LA_Card_POS, o_LA_Emergency, o_LA_Control_Voltages, o_LA_Dummy_AN_PS, o_LA_CA_Delay, o_LA_FAN_OFF_Delay, o_LA_G1_PS_TEST, o_LA_G2_PS_TEST, o_LA_I_G2_HIGH, o_LA_AN_PS_Local, o_LA_RF_Reduced, o_LA_Reduced_RF_PERM, i_Temp_DR_AMP, i_DR_AMP, i_TUNE_OK_Delayed_BAR, o_RF_PERM_BAR, o_RF_RED_BAR, i_G2_PS_Internal_Fault, i_I_G2_HIGH, i_G2_PS_Fault, i_G2_PS_Local, i_G2_PS_ACT, i_AN_PS_Dummy, i_I_AN_PS_OT, i_AN_PS_Fault, i_AN_PS_Local, i_AN_PS_ACT, i_I_G1_High, i_G1_PS_OT, i_G1_PS_Fault, i_G1_PS_Local, i_G1_PS_ACT);
     // comment reset_test when compiling for FPGA
     input logic reset_test;
@@ -62,7 +62,7 @@ module RPSC_FPGA_TOP(sys_clk50, reset_test o_HV_ON_BAR, o_HV_OFF_BAR, o_ANY_HV_G
 
     RPSC_Connection RPSC_Instantiation (
         // C1
-        .clk(clk), .reset(i_C2_RLY_RESET_FF), .reset_hold_error(i_C2_RLY_RESET_FF), .LA_TEST(i_LA_TEST_FF), 
+        .clk(clk), .reset(reset_test), .reset_hold_error(i_C2_RLY_RESET_FF), .LA_TEST(i_LA_TEST_FF), 
         .i_EP1_5(i_FAN_ON_PERM_FF), .i_EP1_4(i_FAN_ACT_FF), .i_EP1_37(i_CA_PS_ACT_FF), 
         .i_C14_46_I_CA_High(i_I_CA_HIGH_FF), .i_C14_74_U_CA_Low(i_U_CA_LOW_FF), .o_C1_BJT_78(o_C2_RLY_CA),
 
@@ -153,15 +153,15 @@ module RPSC_FPGA_TOP_testbench();
         else i <= i + 1;
     end
 
-    task simulateNoLampOn; // Principle: FF receives 0 means there is a problem. FF has a inversed output. FF outputs 1 indicates there is a problem. 
+    task simulateNoLampOn; // Principle: FF has a inversed output. Lamps on the left side should be on. Lamps on the right side should be off
         reset_test <= 1'b1;
         i_C2_RLY_RESET <= 1'b1;
-
+        // Comments may not cover all FF. Some signals affect a lot of FF
         // No FF 15 on C8
-        i_OT_AN_Ready <= 1'b
+        i_OT_AN_Ready <= 1'b1; // Affect FF31 C10
         i_Card_POS <= 1'b1; // FF2 C7
-        i_FAN_ACT <= 1'b0; // Goes through an inverter in card 1 then FF26 C10 TODO: Should lamps on the left on or off?
-        i_FAN_ON_PERM <= 1'b0; // Goes through an inverter in card 1 then FF25 C10
+        i_FAN_ACT <= 1'b1; // Goes through an inverter in card 1 then FF26 C10 TODO: Should lamps on the left on or off?
+        i_FAN_ON_PERM <= 1'b1; // Goes through an inverter in card 1 then FF25 C10
         i_FAN_OFF_Delay <= 1'b1; // FF16 C8
         i_Air_Grid <= 1'b1; // FF3 C7
         i_Air_AN <= 1'b1; // FF4 C7
@@ -170,7 +170,7 @@ module RPSC_FPGA_TOP_testbench();
         i_Door_PAMP <= 1'b1; // FF7 C7
         i_GR_SW <= 1'b1; // FF8 C7
         i_HV_Connector <= 1'b1; // FF9 C8
-        i_CA_PS_ACT <= 1'b0; // Goes through an inverter in card 1 then FF28 C10 
+        i_CA_PS_ACT <= 1'b1; // Goes through an inverter in card 1 then FF28 C10 and FF27 C10
         i_C2_RLY_EM <= 1'b1; // FF1 C7
         i_LA_TEST <= 1'b
         i_U_G1_LOW <= 1'b
@@ -188,17 +188,17 @@ module RPSC_FPGA_TOP_testbench();
         i_I_G2_HIGH <= 1'b1; // FF14 C8
         i_G2_PS_Fault <= 1'b1; // FF18 C9
         i_G2_PS_Local <= 1'b1; // FF13 C8
-        i_G2_PS_ACT <= 1'b
+        i_G2_PS_ACT <= 1'b1; // Affect FF34 C11
         i_AN_PS_Dummy <= 1'b1; // FF12 C8
         i_I_AN_PS_OT <= 1'b1; // FF21 C9
         i_AN_PS_Fault <= 1'b1; // FF20 C9
         i_AN_PS_Local <= 1'b1; // FF11 C8
-        i_AN_PS_ACT <= 1'b
+        i_AN_PS_ACT <= 1'b1; // Affect FF32
         i_I_G1_High <= 1'b1; // FF22 C9
         i_G1_PS_OT <= 1'b1; // FF23 C9
         i_G1_PS_Fault <= 1'b1; // FF17 C9
         i_G1_PS_Local <= 1'b1; // FF10 C8
-        i_G1_PS_ACT <= 1'b
+        i_G1_PS_ACT <= 1'b1; // Affect FF27 C10, FF29 C10, FF30 C10
         
         @(posedge clk);
         i_C2_RLY_RESET <= 1'b0; reset_test <= 1'b0; @(posedge clk);
