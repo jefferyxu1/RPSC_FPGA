@@ -37,7 +37,7 @@ module RPSC_CARD2(
     // Schematic card 2 - 2
     assign Not_Alarm2 = ~(i51_Door_PAMP | i50_Anode_PS_Fault | i49_Emergency | i48_GR_SW_PAMP | i46_DC_PS | i45_HV_Connector | i44_Card_POS);
     assign TH_AN_Ready = (~i53_Not_G1_OK) & (~i54_Not_CA_OK) & Not_Alarm2;
-    assign Not_ON_PERM = i42_Not_OT_AN_Ready & TH_AN_Ready;
+    assign Not_ON_PERM = (~i42_Not_OT_AN_Ready) & TH_AN_Ready; // i42 has actually inverted
     assign Node1 = Not_ON_PERM & i59_AN_PS_ACT;
     assign TM4s_in = i72_U_AN_Low & Node1;
 
