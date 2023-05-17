@@ -1,13 +1,13 @@
 `timescale 1ns / 1ps
 // delete reset_test from IO when compiling for FPGA and hardcode to 1'b0
-module RPSC_FPGA_TOP(sys_clk50, reset_test, o_HV_ON_BAR, o_HV_OFF_BAR, o_ANY_HV_GO_OFF_BAR, o_RED_RF_BAR, o_FULL_RF_BAR, o_HV_Ready_BAR, o_ANY_SB_GO_OFF_BAR, o_SB_OFF_BAR, o_SB_ON_BAR, i_OT_AN_Ready, o_TH_AN_Ready, i_Card_POS, i_FAN_ACT, i_FAN_ON_PERM, i_FAN_OFF_Delay, i_Air_Grid, i_Air_AN, i_Water_Heat_EXCH, i_Water_AN, i_Door_PAMP, i_GR_SW, i_HV_Connector, i_CA_PS_ACT, o_FAN_ON, o_CA_ON, o_LA_FAN_ON, o_LA_FAN_ON_PERM, o_LA_Grid_ON, o_LA_Grid_ON_PERM, o_LA_Cathode_ON, o_LA_Cathode_ON_PERM, o_LA_Anode_ON, o_LA_Anode_ON_PERM, o_LA_Grid2_ON, o_LA_Grid2_ON_PERM, o_LA_DR_AMP_ON, o_LA_DR_AMP_ON_PERM, o_LA_G2_PS_Internal_Fault, o_C2_RLY_DRAC, o_C2_RLY_G2, o_C2_RLY_AN, o_C2_RLY_G1, o_C2_RLY_CA, i_C2_RLY_EM, i_C2_RLY_RESET, i_LA_TEST, i_U_G1_LOW, i_U_G2_LOW, i_U_AN_LOW, i_U_CA_LOW, i_I_AN_HIGH_5A, i_I_AN_HIGH_6A, i_DC_PS_LOW, i_I_CA_HIGH, o_LA_Air_Grid, o_LA_Air_Anode, o_LA_Air_Water_Anode, o_LA_Door_PAMP, o_LA_GR_SW_PAMP, o_LA_HV_Connector, o_LA_TEMP_DR_AMP, o_LA_AN_PS_Fault, o_LA_AN_PS_OC, o_LA_I_G1_HIGH, o_LA_G1_PS_OT, o_LA_U_CA_LOW, o_LA_I_CA_HIGH, o_LA_U_G1_LOW, o_LA_G1_PS_Fault, o_LA_U_AN_LOW, o_LA_I_AN_HIGH, o_LA_U_G2_LOW, o_LA_G2_PS_Fault, o_LA_Card_POS, o_LA_Emergency, o_LA_Control_Voltages, o_LA_Dummy_AN_PS, o_LA_CA_Delay, o_LA_FAN_OFF_Delay, o_LA_G1_PS_TEST, o_LA_G2_PS_TEST, o_LA_I_G2_HIGH, o_LA_AN_PS_Local, o_LA_RF_Reduced, o_LA_Reduced_RF_PERM, i_Temp_DR_AMP, i_DR_AMP, i_TUNE_OK_Delayed_BAR, o_RF_PERM_BAR, o_RF_RED_BAR, i_G2_PS_Internal_Fault, i_I_G2_HIGH, i_G2_PS_Fault, i_G2_PS_Local, i_G2_PS_ACT, i_AN_PS_Dummy, i_I_AN_PS_OT, i_AN_PS_Fault, i_AN_PS_Local, i_AN_PS_ACT, i_I_G1_High, i_G1_PS_OT, i_G1_PS_Fault, i_G1_PS_Local, i_G1_PS_ACT);
+module RPSC_FPGA_TOP(sys_clk50, reset_test, o_LA_Alarm, o_LA_Water_Heat_EXCH, o_HV_ON_BAR, o_HV_OFF_BAR, o_ANY_HV_GO_OFF_BAR, o_RED_RF_BAR, o_FULL_RF_BAR, o_HV_Ready_BAR, o_ANY_SB_GO_OFF_BAR, o_SB_OFF_BAR, o_SB_ON_BAR, i_OT_AN_Ready, o_TH_AN_Ready, i_Card_POS, i_FAN_ACT, i_FAN_ON_PERM, i_FAN_OFF_Delay, i_Air_Grid, i_Air_AN, i_Water_Heat_EXCH, i_Water_AN, i_Door_PAMP, i_GR_SW, i_HV_Connector, i_CA_PS_ACT, o_FAN_ON, o_CA_ON, o_LA_FAN_ON, o_LA_FAN_ON_PERM, o_LA_Grid_ON, o_LA_Grid_ON_PERM, o_LA_Cathode_ON, o_LA_Cathode_ON_PERM, o_LA_Anode_ON, o_LA_Anode_ON_PERM, o_LA_Grid2_ON, o_LA_Grid2_ON_PERM, o_LA_DR_AMP_ON, o_LA_DR_AMP_ON_PERM, o_LA_G2_PS_Internal_Fault, o_C2_RLY_DRAC, o_C2_RLY_G2, o_C2_RLY_AN, o_C2_RLY_G1, o_C2_RLY_CA, i_C2_RLY_EM, i_C2_RLY_RESET, i_LA_TEST, i_U_G1_LOW, i_U_G2_LOW, i_U_AN_LOW, i_U_CA_LOW, i_I_AN_HIGH_5A, i_I_AN_HIGH_6A, i_DC_PS_LOW, i_I_CA_HIGH, o_LA_Air_Grid, o_LA_Air_Anode, o_LA_Water_Anode, o_LA_Door_PAMP, o_LA_GR_SW_PAMP, o_LA_HV_Connector, o_LA_TEMP_DR_AMP, o_LA_AN_PS_Fault, o_LA_AN_PS_OC, o_LA_I_G1_HIGH, o_LA_G1_PS_OT, o_LA_U_CA_LOW, o_LA_I_CA_HIGH, o_LA_U_G1_LOW, o_LA_G1_PS_Fault, o_LA_U_AN_LOW, o_LA_I_AN_HIGH, o_LA_U_G2_LOW, o_LA_G2_PS_Fault, o_LA_Card_POS, o_LA_Emergency, o_LA_Control_Voltages, o_LA_Dummy_AN_PS, o_LA_CA_Delay, o_LA_FAN_OFF_Delay, o_LA_G1_PS_TEST, o_LA_G2_PS_TEST, o_LA_I_G2_HIGH, o_LA_AN_PS_Local, o_LA_RF_Reduced, o_LA_Reduced_RF_PERM, i_Temp_DR_AMP, i_DR_AMP, i_TUNE_OK_Delayed_BAR, o_RF_PERM_BAR, o_RF_RED_BAR, i_G2_PS_Internal_Fault, i_I_G2_HIGH, i_G2_PS_Fault, i_G2_PS_Local, i_G2_PS_ACT, i_AN_PS_Dummy, i_I_AN_PS_High, i_AN_PS_Fault, i_AN_PS_Local, i_AN_PS_ACT, i_I_G1_High, i_G1_PS_OT, i_G1_PS_Fault, i_G1_PS_Local, i_G1_PS_ACT);
     // comment reset_test when compiling for FPGA
     input logic reset_test;
-    input logic sys_clk50, i_OT_AN_Ready, i_Card_POS, i_FAN_ACT, i_FAN_ON_PERM, i_FAN_OFF_Delay, i_Air_Grid, i_Air_AN, i_Water_Heat_EXCH, i_Water_AN, i_Door_PAMP, i_GR_SW, i_HV_Connector, i_CA_PS_ACT, i_C2_RLY_EM, i_C2_RLY_RESET, i_LA_TEST, i_U_G1_LOW, i_U_G2_LOW, i_U_AN_LOW, i_U_CA_LOW, i_I_AN_HIGH_5A, i_I_AN_HIGH_6A, i_DC_PS_LOW, i_I_CA_HIGH, i_Temp_DR_AMP, i_DR_AMP, i_TUNE_OK_Delayed_BAR, i_G2_PS_Internal_Fault, i_I_G2_HIGH, i_G2_PS_Fault, i_G2_PS_Local, i_G2_PS_ACT, i_AN_PS_Dummy, i_I_AN_PS_OT, i_AN_PS_Fault, i_AN_PS_Local, i_AN_PS_ACT, i_I_G1_High, i_G1_PS_OT, i_G1_PS_Fault, i_G1_PS_Local, i_G1_PS_ACT;
+    input logic sys_clk50, i_OT_AN_Ready, i_Card_POS, i_FAN_ACT, i_FAN_ON_PERM, i_FAN_OFF_Delay, i_Air_Grid, i_Air_AN, i_Water_Heat_EXCH, i_Water_AN, i_Door_PAMP, i_GR_SW, i_HV_Connector, i_CA_PS_ACT, i_C2_RLY_EM, i_C2_RLY_RESET, i_LA_TEST, i_U_G1_LOW, i_U_G2_LOW, i_U_AN_LOW, i_U_CA_LOW, i_I_AN_HIGH_5A, i_I_AN_HIGH_6A, i_DC_PS_LOW, i_I_CA_HIGH, i_Temp_DR_AMP, i_DR_AMP, i_TUNE_OK_Delayed_BAR, i_G2_PS_Internal_Fault, i_I_G2_HIGH, i_G2_PS_Fault, i_G2_PS_Local, i_G2_PS_ACT, i_AN_PS_Dummy, i_I_AN_PS_High, i_AN_PS_Fault, i_AN_PS_Local, i_AN_PS_ACT, i_I_G1_High, i_G1_PS_OT, i_G1_PS_Fault, i_G1_PS_Local, i_G1_PS_ACT;
 
-    output logic o_HV_ON_BAR, o_HV_OFF_BAR, o_RED_RF_BAR, o_FULL_RF_BAR, o_HV_Ready_BAR, o_SB_OFF_BAR, o_SB_ON_BAR, o_TH_AN_Ready, o_FAN_ON, o_CA_ON, o_LA_FAN_ON, o_LA_FAN_ON_PERM, o_LA_Grid_ON, o_LA_Grid_ON_PERM, o_LA_Cathode_ON, o_LA_Cathode_ON_PERM, o_LA_Anode_ON, o_LA_Anode_ON_PERM, o_LA_Grid2_ON, o_LA_Grid2_ON_PERM, o_LA_DR_AMP_ON, o_LA_DR_AMP_ON_PERM, o_LA_G2_PS_Internal_Fault, o_C2_RLY_DRAC, o_C2_RLY_G2, o_C2_RLY_AN, o_C2_RLY_G1, o_C2_RLY_CA, o_LA_Air_Grid, o_LA_Air_Anode, o_LA_Air_Water_Anode, o_LA_Door_PAMP, o_LA_GR_SW_PAMP, o_LA_HV_Connector, o_LA_TEMP_DR_AMP, o_LA_AN_PS_Fault, o_LA_AN_PS_OC, o_LA_I_G1_HIGH, o_LA_G1_PS_OT, o_LA_U_CA_LOW, o_LA_I_CA_HIGH, o_LA_U_G1_LOW, o_LA_G1_PS_Fault, o_LA_U_AN_LOW, o_LA_I_AN_HIGH, o_LA_U_G2_LOW, o_LA_G2_PS_Fault, o_LA_Card_POS, o_LA_Emergency, o_LA_Control_Voltages, o_LA_Dummy_AN_PS, o_LA_CA_Delay, o_LA_FAN_OFF_Delay, o_LA_G1_PS_TEST, o_LA_G2_PS_TEST, o_LA_I_G2_HIGH, o_LA_AN_PS_Local, o_LA_RF_Reduced, o_LA_Reduced_RF_PERM, o_RF_PERM_BAR, o_RF_RED_BAR, o_ANY_HV_GO_OFF_BAR, o_ANY_SB_GO_OFF_BAR;
+    output logic o_LA_Alarm, o_LA_Water_Heat_EXCH, o_HV_ON_BAR, o_HV_OFF_BAR, o_RED_RF_BAR, o_FULL_RF_BAR, o_HV_Ready_BAR, o_SB_OFF_BAR, o_SB_ON_BAR, o_TH_AN_Ready, o_FAN_ON, o_CA_ON, o_LA_FAN_ON, o_LA_FAN_ON_PERM, o_LA_Grid_ON, o_LA_Grid_ON_PERM, o_LA_Cathode_ON, o_LA_Cathode_ON_PERM, o_LA_Anode_ON, o_LA_Anode_ON_PERM, o_LA_Grid2_ON, o_LA_Grid2_ON_PERM, o_LA_DR_AMP_ON, o_LA_DR_AMP_ON_PERM, o_LA_G2_PS_Internal_Fault, o_C2_RLY_DRAC, o_C2_RLY_G2, o_C2_RLY_AN, o_C2_RLY_G1, o_C2_RLY_CA, o_LA_Air_Grid, o_LA_Air_Anode, o_LA_Water_Anode, o_LA_Door_PAMP, o_LA_GR_SW_PAMP, o_LA_HV_Connector, o_LA_TEMP_DR_AMP, o_LA_AN_PS_Fault, o_LA_AN_PS_OC, o_LA_I_G1_HIGH, o_LA_G1_PS_OT, o_LA_U_CA_LOW, o_LA_I_CA_HIGH, o_LA_U_G1_LOW, o_LA_G1_PS_Fault, o_LA_U_AN_LOW, o_LA_I_AN_HIGH, o_LA_U_G2_LOW, o_LA_G2_PS_Fault, o_LA_Card_POS, o_LA_Emergency, o_LA_Control_Voltages, o_LA_Dummy_AN_PS, o_LA_CA_Delay, o_LA_FAN_OFF_Delay, o_LA_G1_PS_TEST, o_LA_G2_PS_TEST, o_LA_I_G2_HIGH, o_LA_AN_PS_Local, o_LA_RF_Reduced, o_LA_Reduced_RF_PERM, o_RF_PERM_BAR, o_RF_RED_BAR, o_ANY_HV_GO_OFF_BAR, o_ANY_SB_GO_OFF_BAR;
 
-    logic i_OT_AN_Ready_FF, i_Card_POS_FF, i_FAN_ACT_FF, i_FAN_ON_PERM_FF, i_FAN_OFF_Delay_FF, i_Air_Grid_FF, i_Air_AN_FF, i_Water_Heat_EXCH_FF, i_Water_AN_FF, i_Door_PAMP_FF, i_GR_SW_FF, i_HV_Connector_FF, i_CA_PS_ACT_FF, i_C2_RLY_EM_FF, i_C2_RLY_RESET_FF, i_LA_TEST_FF, i_U_G1_LOW_FF, i_U_G2_LOW_FF, i_U_AN_LOW_FF, i_U_CA_LOW_FF, i_I_AN_HIGH_5A_FF, i_I_AN_HIGH_6A_FF, i_DC_PS_LOW_FF, i_I_CA_HIGH_FF, i_Temp_DR_AMP_FF, i_DR_AMP_FF, i_TUNE_OK_Delayed_BAR_FF, i_G2_PS_Internal_Fault_FF, i_I_G2_HIGH_FF, i_G2_PS_Fault_FF, i_G2_PS_Local_FF, i_G2_PS_ACT_FF, i_AN_PS_Dummy_FF, i_I_AN_PS_OT_FF, i_AN_PS_Fault_FF, i_AN_PS_Local_FF, i_AN_PS_ACT_FF, i_I_G1_High_FF, i_G1_PS_OT_FF, i_G1_PS_Fault_FF, i_G1_PS_Local_FF, i_G1_PS_ACT_FF;
+    logic i_OT_AN_Ready_FF, i_Card_POS_FF, i_FAN_ACT_FF, i_FAN_ON_PERM_FF, i_FAN_OFF_Delay_FF, i_Air_Grid_FF, i_Air_AN_FF, i_Water_Heat_EXCH_FF, i_Water_AN_FF, i_Door_PAMP_FF, i_GR_SW_FF, i_HV_Connector_FF, i_CA_PS_ACT_FF, i_C2_RLY_EM_FF, i_C2_RLY_RESET_FF, i_LA_TEST_FF, i_U_G1_LOW_FF, i_U_G2_LOW_FF, i_U_AN_LOW_FF, i_U_CA_LOW_FF, i_I_AN_HIGH_5A_FF, i_I_AN_HIGH_6A_FF, i_DC_PS_LOW_FF, i_I_CA_HIGH_FF, i_Temp_DR_AMP_FF, i_DR_AMP_FF, i_TUNE_OK_Delayed_BAR_FF, i_G2_PS_Internal_Fault_FF, i_I_G2_HIGH_FF, i_G2_PS_Fault_FF, i_G2_PS_Local_FF, i_G2_PS_ACT_FF, i_AN_PS_Dummy_FF, i_I_AN_PS_High_FF, i_AN_PS_Fault_FF, i_AN_PS_Local_FF, i_AN_PS_ACT_FF, i_I_G1_High_FF, i_G1_PS_OT_FF, i_G1_PS_Fault_FF, i_G1_PS_Local_FF, i_G1_PS_ACT_FF;
 
     // comment and uncomment clock related stuff for testbench and FPGA load.
     // check card1, 2, 3, timer_card18, special_60s_timer 
@@ -49,7 +49,7 @@ module RPSC_FPGA_TOP(sys_clk50, reset_test, o_HV_ON_BAR, o_HV_OFF_BAR, o_ANY_HV_
     inputFF inputFF31 (.clk(clk), .reset(reset_test), .out(i_G2_PS_Local_FF), .in(i_G2_PS_Local));
     inputFF inputFF32 (.clk(clk), .reset(reset_test), .out(i_G2_PS_ACT_FF), .in(i_G2_PS_ACT));
     inputFF inputFF33 (.clk(clk), .reset(reset_test), .out(i_AN_PS_Dummy_FF), .in(i_AN_PS_Dummy));
-    inputFF inputFF34 (.clk(clk), .reset(reset_test), .out(i_I_AN_PS_OT_FF), .in(i_I_AN_PS_OT));
+    inputFF inputFF34 (.clk(clk), .reset(reset_test), .out(i_I_AN_PS_High_FF), .in(i_I_AN_PS_High));
     inputFF inputFF35 (.clk(clk), .reset(reset_test), .out(i_AN_PS_Fault_FF), .in(i_AN_PS_Fault));
     inputFF inputFF36 (.clk(clk), .reset(reset_test), .out(i_AN_PS_Local_FF), .in(i_AN_PS_Local));
     inputFF inputFF37 (.clk(clk), .reset(reset_test), .out(i_AN_PS_ACT_FF), .in(i_AN_PS_ACT));
@@ -71,7 +71,7 @@ module RPSC_FPGA_TOP(sys_clk50, reset_test, o_HV_ON_BAR, o_HV_OFF_BAR, o_ANY_HV_
         .o_EP7_1(o_TH_AN_Ready), .o_C2_BJT_39(o_C2_RLY_G1), .o_C2_BJT_78(o_C2_RLY_AN),
 
         // C3
-        .i_EP4_5(i_G2_PS_ACT_FF), .i_C15_50_U_G2_Low(i_U_G2_LOW)/*TODO: is it high or low*/, .i_EP5_5(i_DR_AMP_FF),
+        .i_EP4_5(i_G2_PS_ACT_FF), .i_C15_50_U_G2_Low(i_U_G2_LOW), .i_EP5_5(i_DR_AMP_FF),
         .o_C3_BJT_39(o_C2_RLY_G2), .o_C3_BJT_78(o_C2_RLY_DRAC),
 
         // C5
@@ -85,8 +85,8 @@ module RPSC_FPGA_TOP(sys_clk50, reset_test, o_HV_ON_BAR, o_HV_OFF_BAR, o_ANY_HV_
         .i_EP1_10(i_Air_Grid_FF), .i_EP1_11(i_Air_AN_FF), .i_EP1_14(i_Water_Heat_EXCH_FF), .i_EP1_15(i_Water_AN_FF), 
         .i_EP1_18(i_Door_PAMP_FF), .i_EP1_19(i_GR_SW_FF), .i_Card_POS(i_Card_POS_FF),
         .o_LA_Emergency(o_LA_Emergency), .o_LA_Card_POS(o_LA_Card_POS), .o_LA_Air_Grid(o_LA_Air_Grid), 
-        .o_LA_Air_Anode(o_LA_Air_Anode), .o_LA_Water_Heat_Exchanger(), // Won't need water heat exchanger
-        .o_LA_Water_Anode(o_LA_Air_Water_Anode), .o_LA_Door_PAMP(o_LA_Door_PAMP), .o_LA_Ground_SW(o_LA_GR_SW_PAMP),
+        .o_LA_Air_Anode(o_LA_Air_Anode), .o_LA_Water_Heat_Exchanger(o_LA_Water_Heat_EXCH),
+        .o_LA_Water_Anode(o_LA_Water_Anode), .o_LA_Door_PAMP(o_LA_Door_PAMP), .o_LA_Ground_SW(o_LA_GR_SW_PAMP),
 
         // C8
         .i_EP1_20(i_HV_Connector_FF), .i_EP2_11(i_G1_PS_Local_FF), .i_EP3_11(i_AN_PS_Local_FF), .i_EP3_24(i_AN_PS_Dummy_FF), 
@@ -97,7 +97,7 @@ module RPSC_FPGA_TOP(sys_clk50, reset_test, o_HV_ON_BAR, o_HV_OFF_BAR, o_ANY_HV_
 
         // C9
         .i_EP2_12(i_G1_PS_Fault_FF), .i_EP4_12(i_G2_PS_Fault_FF), .i_EP5_12(i_Temp_DR_AMP_FF), .i_EP3_12(i_AN_PS_Fault_FF), 
-        .i_EP3_19(i_I_AN_PS_OT_FF), .i_EP2_16(i_I_G1_High_FF), .i_EP2_14(i_G1_PS_OT_FF), .i_EP4_16(i_G2_PS_Internal_Fault_FF),                    
+        .i_EP3_19(i_I_AN_PS_High_FF), .i_EP2_16(i_I_G1_High_FF), .i_EP2_14(i_G1_PS_OT_FF), .i_EP4_16(i_G2_PS_Internal_Fault_FF),                    
         .o_LA_G1_PS_Fault(o_LA_G1_PS_Fault), .o_LA_G2_PS_Fault(o_LA_G2_PS_Fault), .o_LA_TEMP_DR_AMP(o_LA_TEMP_DR_AMP), 
         .o_LA_Anode_PS_Fault(o_LA_AN_PS_Fault), .o_LA_AN_PS_Over_Current(o_LA_AN_PS_OC),
         .o_LA_I_G1_High(o_LA_I_G1_HIGH), .o_LA_G1_PS_Over_Temp(o_LA_G1_PS_OT), .o_LA_G2_PS_Internal_Fault(o_LA_G2_PS_Internal_Fault),
@@ -118,7 +118,7 @@ module RPSC_FPGA_TOP(sys_clk50, reset_test, o_HV_ON_BAR, o_HV_OFF_BAR, o_ANY_HV_
         .i_C16_74_DC_PS_Low(i_DC_PS_LOW_FF),
         .o_LA_U_CA_Low(o_LA_U_CA_LOW), .o_LA_I_CA_High(o_LA_I_CA_HIGH), .o_LA_U_G1_Low(o_LA_U_G1_LOW), 
         .o_LA_U_AN_Low(o_LA_U_AN_LOW), .o_LA_I_AN_High(o_LA_I_AN_HIGH), .o_LA_U_G2_Low(o_LA_U_G2_LOW), 
-        .o_LA_DC_PS_Low(o_LA_Control_Voltages), .o_LA_Alarm(), // Alarm lamp doesn't exist
+        .o_LA_DC_PS_Low(o_LA_Control_Voltages), .o_LA_Alarm(o_LA_Alarm),
 
         // C18
         .o_EP7_38(o_ANY_SB_GO_OFF_BAR), .o_EP7_42(o_ANY_HV_GO_OFF_BAR), .o_EP7_36(o_SB_ON_BAR), .o_EP7_37(o_SB_OFF_BAR), 
@@ -129,9 +129,9 @@ endmodule
 
 module RPSC_FPGA_TOP_testbench();
     logic reset_test;
-    logic sys_clk50, o_ANY_HV_GO_OFF_BAR, o_ANY_SB_GO_OFF_BAR, i_OT_AN_Ready, i_Card_POS, i_FAN_ACT, i_FAN_ON_PERM, i_FAN_OFF_Delay, i_Air_Grid, i_Air_AN, i_Water_Heat_EXCH, i_Water_AN, i_Door_PAMP, i_GR_SW, i_HV_Connector, i_CA_PS_ACT, i_C2_RLY_EM, i_C2_RLY_RESET, i_LA_TEST, i_U_G1_LOW, i_U_G2_LOW, i_U_AN_LOW, i_U_CA_LOW, i_I_AN_HIGH_5A, i_I_AN_HIGH_6A, i_DC_PS_LOW, i_I_CA_HIGH, i_Temp_DR_AMP, i_DR_AMP, i_TUNE_OK_Delayed_BAR, i_G2_PS_Internal_Fault, i_I_G2_HIGH, i_G2_PS_Fault, i_G2_PS_Local, i_G2_PS_ACT, i_AN_PS_Dummy, i_I_AN_PS_OT, i_AN_PS_Fault, i_AN_PS_Local, i_AN_PS_ACT, i_I_G1_High, i_G1_PS_OT, i_G1_PS_Fault, i_G1_PS_Local, i_G1_PS_ACT;
+    logic sys_clk50, o_ANY_HV_GO_OFF_BAR, o_ANY_SB_GO_OFF_BAR, i_OT_AN_Ready, i_Card_POS, i_FAN_ACT, i_FAN_ON_PERM, i_FAN_OFF_Delay, i_Air_Grid, i_Air_AN, i_Water_Heat_EXCH, i_Water_AN, i_Door_PAMP, i_GR_SW, i_HV_Connector, i_CA_PS_ACT, i_C2_RLY_EM, i_C2_RLY_RESET, i_LA_TEST, i_U_G1_LOW, i_U_G2_LOW, i_U_AN_LOW, i_U_CA_LOW, i_I_AN_HIGH_5A, i_I_AN_HIGH_6A, i_DC_PS_LOW, i_I_CA_HIGH, i_Temp_DR_AMP, i_DR_AMP, i_TUNE_OK_Delayed_BAR, i_G2_PS_Internal_Fault, i_I_G2_HIGH, i_G2_PS_Fault, i_G2_PS_Local, i_G2_PS_ACT, i_AN_PS_Dummy, i_I_AN_PS_High, i_AN_PS_Fault, i_AN_PS_Local, i_AN_PS_ACT, i_I_G1_High, i_G1_PS_OT, i_G1_PS_Fault, i_G1_PS_Local, i_G1_PS_ACT;
 
-    logic o_HV_ON_BAR, o_HV_OFF_BAR, o_RED_RF_BAR, o_FULL_RF_BAR, o_HV_Ready_BAR, o_SB_OFF_BAR, o_SB_ON_BAR, o_TH_AN_Ready, o_FAN_ON, o_CA_ON, o_LA_FAN_ON, o_LA_FAN_ON_PERM, o_LA_Grid_ON, o_LA_Grid_ON_PERM, o_LA_Cathode_ON, o_LA_Cathode_ON_PERM, o_LA_Anode_ON, o_LA_Anode_ON_PERM, o_LA_Grid2_ON, o_LA_Grid2_ON_PERM, o_LA_DR_AMP_ON, o_LA_DR_AMP_ON_PERM, o_LA_G2_PS_Internal_Fault, o_C2_RLY_DRAC, o_C2_RLY_G2, o_C2_RLY_AN, o_C2_RLY_G1, o_C2_RLY_CA, o_LA_Air_Grid, o_LA_Air_Anode, o_LA_Air_Water_Anode, o_LA_Door_PAMP, o_LA_GR_SW_PAMP, o_LA_HV_Connector, o_LA_TEMP_DR_AMP, o_LA_AN_PS_Fault, o_LA_AN_PS_OC, o_LA_I_G1_HIGH, o_LA_G1_PS_OT, o_LA_U_CA_LOW, o_LA_I_CA_HIGH, o_LA_U_G1_LOW, o_LA_G1_PS_Fault, o_LA_U_AN_LOW, o_LA_I_AN_HIGH, o_LA_U_G2_LOW, o_LA_G2_PS_Fault, o_LA_Card_POS, o_LA_Emergency, o_LA_Control_Voltages, o_LA_Dummy_AN_PS, o_LA_CA_Delay, o_LA_FAN_OFF_Delay, o_LA_G1_PS_TEST, o_LA_G2_PS_TEST, o_LA_I_G2_HIGH, o_LA_AN_PS_Local, o_LA_RF_Reduced, o_LA_Reduced_RF_PERM, o_RF_PERM_BAR, o_RF_RED_BAR;
+    logic o_LA_Alarm, o_LA_Water_Heat_EXCH, o_HV_ON_BAR, o_HV_OFF_BAR, o_RED_RF_BAR, o_FULL_RF_BAR, o_HV_Ready_BAR, o_SB_OFF_BAR, o_SB_ON_BAR, o_TH_AN_Ready, o_FAN_ON, o_CA_ON, o_LA_FAN_ON, o_LA_FAN_ON_PERM, o_LA_Grid_ON, o_LA_Grid_ON_PERM, o_LA_Cathode_ON, o_LA_Cathode_ON_PERM, o_LA_Anode_ON, o_LA_Anode_ON_PERM, o_LA_Grid2_ON, o_LA_Grid2_ON_PERM, o_LA_DR_AMP_ON, o_LA_DR_AMP_ON_PERM, o_LA_G2_PS_Internal_Fault, o_C2_RLY_DRAC, o_C2_RLY_G2, o_C2_RLY_AN, o_C2_RLY_G1, o_C2_RLY_CA, o_LA_Air_Grid, o_LA_Air_Anode, o_LA_Water_Anode, o_LA_Door_PAMP, o_LA_GR_SW_PAMP, o_LA_HV_Connector, o_LA_TEMP_DR_AMP, o_LA_AN_PS_Fault, o_LA_AN_PS_OC, o_LA_I_G1_HIGH, o_LA_G1_PS_OT, o_LA_U_CA_LOW, o_LA_I_CA_HIGH, o_LA_U_G1_LOW, o_LA_G1_PS_Fault, o_LA_U_AN_LOW, o_LA_I_AN_HIGH, o_LA_U_G2_LOW, o_LA_G2_PS_Fault, o_LA_Card_POS, o_LA_Emergency, o_LA_Control_Voltages, o_LA_Dummy_AN_PS, o_LA_CA_Delay, o_LA_FAN_OFF_Delay, o_LA_G1_PS_TEST, o_LA_G2_PS_TEST, o_LA_I_G2_HIGH, o_LA_AN_PS_Local, o_LA_RF_Reduced, o_LA_Reduced_RF_PERM, o_RF_PERM_BAR, o_RF_RED_BAR;
     
     logic clk, reset;
     assign sys_clk50 = clk;
@@ -159,7 +159,7 @@ module RPSC_FPGA_TOP_testbench();
         // No FF 15 on C8
         i_OT_AN_Ready <= 1'b0; // Affect FF31 C10 TODO: Check if it has an inverted input
         i_Card_POS <= 1'b1; // FF2 C7
-        i_FAN_ACT <= 1'b1; // Goes through an inverter in card 1 then FF26 C10 TODO: Should lamps on the left on or off?
+        i_FAN_ACT <= 1'b1; // Goes through an inverter in card 1 then FF26 C10
         i_FAN_ON_PERM <= 1'b1; // Goes through an inverter in card 1 then FF25 C10
         i_FAN_OFF_Delay <= 1'b1; // FF16 C8
         i_Air_Grid <= 1'b1; // FF3 C7
@@ -177,19 +177,19 @@ module RPSC_FPGA_TOP_testbench();
         i_U_AN_LOW <= 1'b0; // Affect 4s counter on Card 2
         i_U_CA_LOW <= 1'b0; // Affect FF41 C12
         i_I_AN_HIGH_5A <= 1'b0; // TODO: Check. Analog cards usually output low?
-        i_I_AN_HIGH_6A <= 1'b0; // TODO: Check
+        i_I_AN_HIGH_6A <= 1'b0; // TODO: Check. Analog cards usually output low?
         i_DC_PS_LOW <= 1'b1; // TODO: Check
         i_I_CA_HIGH <= 1'b0; // Affect FF42 C12
         i_Temp_DR_AMP <= 1'b1; // FF19 C9
         i_DR_AMP <= 1'b1; // DR_AMP_ACT, goes to card 3 Pin 59 and affect 
-        i_TUNE_OK_Delayed_BAR <= 1'b0; // TODO: Check if inverted
+        i_TUNE_OK_Delayed_BAR <= 1'b0; // TODO: Check if inverted // Seems not inverting
         i_G2_PS_Internal_Fault <= 1'b1; // FF24 C9
         i_I_G2_HIGH <= 1'b1; // FF14 C8
         i_G2_PS_Fault <= 1'b1; // FF18 C9
         i_G2_PS_Local <= 1'b1; // FF13 C8
         i_G2_PS_ACT <= 1'b1; // Affect FF34 C11
         i_AN_PS_Dummy <= 1'b0; // FF12 C8 Dummy turns on
-        i_I_AN_PS_OT <= 1'b1; // FF21 C9
+        i_I_AN_PS_High <= 1'b1; // FF21 C9
         i_AN_PS_Fault <= 1'b1; // FF20 C9
         i_AN_PS_Local <= 1'b1; // FF11 C8
         i_AN_PS_ACT <= 1'b1; // Affect FF32
