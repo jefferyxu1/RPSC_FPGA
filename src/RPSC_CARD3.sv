@@ -21,7 +21,7 @@ module RPSC_CARD3(
     
     // When clk period is 1.28us
     // timer #(.WIDTH(21)) timer2s (.clk(clk), .reset(reset), .target(21'd1562500), .in(TM2s_in), .hit_target(TM2s_out));
-    timer #(.WIDTH(4)) timer2s (.clk(clk), .reset(reset), .target(4'd8), .in(TM2s_in), .hit_target(TM2s_out));
+    timed_delay #(.WIDTH(4)) timer2s (.clk(clk), .reset(reset), .target(4'd8), .in(TM2s_in), .hit_target(TM2s_out));
 
     assign o13_Not_Alarm = Not_Alarm;
     assign o39_Ground_Hold_OK = Ground_Hold_OK; //+transistor

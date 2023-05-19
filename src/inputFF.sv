@@ -4,6 +4,7 @@ module inputFF(clk, reset, out, in);
 
     logic intermediate;
 
+    // Comment following section during simulation
     // always_ff @(posedge clk) begin
     //     if (reset) begin
     //         intermediate <= 1'b0;
@@ -14,5 +15,7 @@ module inputFF(clk, reset, out, in);
     //         out <= intermediate;
     //     end
     // end
+    // Comment until here
+    
     assign out = in;
 endmodule

@@ -25,8 +25,8 @@ module RPSC_CARD1(o19_FAN_ON, o14_FAN_ON_PERM, o55_Not_Alarm,
 
     // Using smaller parameter when testing
     // Assume clock period 1.28 us
-    // timer #(.WIDTH(22)) timer4s (.clk(clk), .reset(reset), .target(22'd3125000), .in(andControl), .hit_target(on_4s));
-    timer #(.WIDTH(4)) timer4s_test (.clk(clk), .reset(reset), .target(4'd15), .in(andControl), .hit_target(on_4s));
+    // timed_delay #(.WIDTH(22)) timer4s (.clk(clk), .reset(reset), .target(22'd3125000), .in(andControl), .hit_target(on_4s));
+    timed_delay #(.WIDTH(4)) timer4s_test (.clk(clk), .reset(reset), .target(4'd15), .in(andControl), .hit_target(on_4s));
     special_60s_timer timer60s (.clk(clk), .reset(reset), .in(on_4s), .hit_target(on_60s));
 
     assign o55_Not_Alarm = norStatus;
