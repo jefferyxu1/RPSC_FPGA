@@ -5,17 +5,17 @@ module inputFF(clk, reset, out, in);
     logic intermediate;
 
     // Comment following section during simulation
-    // always_ff @(posedge clk) begin
-    //     if (reset) begin
-    //         intermediate <= 1'b0;
-    //         out <= 1'b0;
-    //     end
-    //     else begin
-    //         intermediate <= in;
-    //         out <= intermediate;
-    //     end
-    // end
-    // Comment until here
+    always_ff @(posedge clk) begin
+        if (reset) begin
+            intermediate <= 1'b0;
+            out <= 1'b0;
+        end
+        else begin
+            intermediate <= in;
+            out <= intermediate;
+        end
+    end
     
-    assign out = in;
+    //uncomment this line when simulation
+    //assign out = in;
 endmodule

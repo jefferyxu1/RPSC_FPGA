@@ -8,14 +8,19 @@ module timer_card18 (clk, reset, in, out);
     assign FSMin = {lowDelay, highDelay};
 
     // Clk Period 1.28us
-    //timer #(.WIDTH(18)) highTimer (.clk(clk), .reset(reset), .target(18'd146875), .in(in), .hit_target(highDelay));
-    //timer #(.WIDTH(18)) lowTimer (.clk(clk), .reset(reset), .target(18'd146875), .in(~in), .hit_target(lowDelay));
+    timer #(.WIDTH(18)) highTimer (.clk(clk), .reset(reset), .target(18'd146875), .in(in), .hit_target(highDelay));
+    timer #(.WIDTH(18)) lowTimer (.clk(clk), .reset(reset), .target(18'd146875), .in(~in), .hit_target(lowDelay));
 
     // For testing
-    timer #(.WIDTH(3)) highTimer (.clk(clk), .reset(reset), .target(3'd7), .in(in), .hit_target(highDelay));
-    timer #(.WIDTH(3)) lowTimer (.clk(clk), .reset(reset), .target(3'd7), .in(~in), .hit_target(lowDelay));
+    //timer #(.WIDTH(3)) highTimer (.clk(clk), .reset(reset), .target(3'd7), .in(in), .hit_target(highDelay));
+    //timer #(.WIDTH(3)) lowTimer (.clk(clk), .reset(reset), .target(3'd7), .in(~in), .hit_target(lowDelay));
 
-    enum {s_start, s_low, s_high} ps, ns;
+    localparam [1:0]
+        s_start = 2'b00,
+        s_low = 2'b01,
+        s_high = 2'b10;
+
+    logic [1:0] ps, ns;
 
     always_ff @(posedge clk) begin
         if (reset) ps <= s_start;
@@ -61,7 +66,7 @@ module timer_card18_testbench();
     endtask
 
     task longtime;
-        repeat (10) @(posedge clk);
+        repeat (50) @(posedge clk);
     endtask
 
     initial begin
@@ -77,6 +82,11 @@ module timer_card18_testbench();
         reset <= 1'b0;
         longtime;
         inputHigh;
+        longtime;
+        inputLow;
+        longtime;
+        inputHigh;
+        inputLow;
         longtime;
         $stop;
     end
