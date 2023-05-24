@@ -32,7 +32,7 @@ module FF_Hold_Error_testbench ();
     end
 
     initial begin
-        reset <= 1'b1; @(posedge clk);
+        reset <= 1'b1; LA_Test <= 1'b0; @(posedge clk);
         reset <= 1'b0; in <= 1'b1; @(posedge clk);
         @(posedge clk);
         @(posedge clk);

@@ -24,8 +24,8 @@ module RPSC_CARD2(
     assign Not_G1_OK = ~TM2s_out;
 
     // 2 second timer when clk period is 1.28us
-    timer #(.WIDTH(21)) timer2s (.clk(clk), .reset(reset), .target(21'd1562500), .in(TM2s_in), .hit_target(TM2s_out));
-    //timed_delay #(.WIDTH(4)) timer2s_test (.clk(clk), .reset(reset), .target(4'd8), .in(TM2s_in), .hit_target(TM2s_out));
+    //timer #(.WIDTH(21)) timer2s (.clk(clk), .reset(reset), .target(21'd1562500), .in(TM2s_in), .hit_target(TM2s_out));
+    timer #(.WIDTH(4)) timer2s_test (.clk(clk), .reset(reset), .target(4'd8), .in(TM2s_in), .hit_target(TM2s_out));
 
     assign o19_Not_G1_ON = ~i18_G1_PS_ACT;
     assign o13_Not_Alarm = Not_Alarm;
@@ -42,8 +42,8 @@ module RPSC_CARD2(
     assign TM4s_in = i72_U_AN_Low & Node1;
 
     // when clk period is 1.28us
-    timer #(.WIDTH(22)) timer4s (.clk(clk), .reset(reset), .target(22'd3125000), .in(TM4s_in), .hit_target(TM4s_out));
-    //timed_delay #(.WIDTH(4)) timer4s_test (.clk(clk), .reset(reset), .target(4'd15), .in(TM4s_in), .hit_target(TM4s_out));
+    // timer #(.WIDTH(22)) timer4s (.clk(clk), .reset(reset), .target(22'd3125000), .in(TM4s_in), .hit_target(TM4s_out));
+    timer #(.WIDTH(4)) timer4s_test (.clk(clk), .reset(reset), .target(4'd15), .in(TM4s_in), .hit_target(TM4s_out));
 
     assign o55_Not_Alarm = Not_Alarm2;
     assign o62_AN_ON = ~i59_AN_PS_ACT;

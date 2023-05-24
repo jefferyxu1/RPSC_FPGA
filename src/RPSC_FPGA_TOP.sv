@@ -45,7 +45,7 @@ module RPSC_FPGA_TOP(input logic sys_clk50,
     input logic i_G1_PS_ACT,
     output logic o_TP1,
     output logic o_TP2,
-    output logic o_TP3,
+    input logic i_TP3,
     output logic o_TP4,
     output logic o_TP5,
     output logic o_HV_ON_BAR,
@@ -118,60 +118,61 @@ module RPSC_FPGA_TOP(input logic sys_clk50,
 
 
     logic i_OT_AN_Ready_FF,
-    i_Card_POS_FF,
-    i_FAN_ACT_FF,
-    i_FAN_ON_PERM_FF,
-    i_FAN_OFF_Delay_FF,
-    i_Air_Grid_FF,
-    i_Air_AN_FF,
-    i_Water_Heat_EXCH_FF,
-    i_Water_AN_FF,
-    i_Door_PAMP_FF,
-    i_GR_SW_FF,
-    i_HV_Connector_FF,
-    i_CA_PS_ACT_FF,
-    i_C2_RLY_EM_FF,
-    i_C2_RLY_RESET_FF,
-    i_LA_TEST_FF,
-    i_U_G1_LOW_FF,
-    i_U_G2_LOW_FF,
-    i_U_AN_LOW_FF,
-    i_U_CA_LOW_FF,
-    i_I_AN_HIGH_5A_FF,
-    i_I_AN_HIGH_6A_FF,
-    i_DC_PS_LOW_FF,
-    i_I_CA_HIGH_FF,
-    i_UART_RX_FF,
-    i_Temp_DR_AMP_FF,
-    i_DR_AMP_FF,
-    i_TUNE_OK_Delayed_BAR_FF,
-    i_G2_PS_Internal_Fault_FF,
-    i_I_G2_HIGH_FF,
-    i_G2_PS_Fault_FF,
-    i_G2_PS_Local_FF,
-    i_G2_PS_ACT_FF,
-    i_AN_PS_Dummy_FF,
-    i_I_AN_PS_High_FF,
-    i_AN_PS_Fault_FF,
-    i_AN_PS_Local_FF,
-    i_AN_PS_ACT_FF,
-    i_I_G1_High_FF,
-    i_G1_PS_OT_FF,
-    i_G1_PS_Fault_FF,
-    i_G1_PS_Local_FF,
-    i_G1_PS_ACT_FF;
+        i_Card_POS_FF,
+        i_FAN_ACT_FF,
+        i_FAN_ON_PERM_FF,
+        i_FAN_OFF_Delay_FF,
+        i_Air_Grid_FF,
+        i_Air_AN_FF,
+        i_Water_Heat_EXCH_FF,
+        i_Water_AN_FF,
+        i_Door_PAMP_FF,
+        i_GR_SW_FF,
+        i_HV_Connector_FF,
+        i_CA_PS_ACT_FF,
+        i_C2_RLY_EM_FF,
+        i_C2_RLY_RESET_FF,
+        i_LA_TEST_FF,
+        i_U_G1_LOW_FF,
+        i_U_G2_LOW_FF,
+        i_U_AN_LOW_FF,
+        i_U_CA_LOW_FF,
+        i_I_AN_HIGH_5A_FF,
+        i_I_AN_HIGH_6A_FF,
+        i_DC_PS_LOW_FF,
+        i_I_CA_HIGH_FF,
+        i_UART_RX_FF,
+        i_Temp_DR_AMP_FF,
+        i_DR_AMP_FF,
+        i_TUNE_OK_Delayed_BAR_FF,
+        i_G2_PS_Internal_Fault_FF,
+        i_I_G2_HIGH_FF,
+        i_G2_PS_Fault_FF,
+        i_G2_PS_Local_FF,
+        i_G2_PS_ACT_FF,
+        i_AN_PS_Dummy_FF,
+        i_I_AN_PS_High_FF,
+        i_AN_PS_Fault_FF,
+        i_AN_PS_Local_FF,
+        i_AN_PS_ACT_FF,
+        i_I_G1_High_FF,
+        i_G1_PS_OT_FF,
+        i_G1_PS_Fault_FF,
+        i_G1_PS_Local_FF,
+        i_G1_PS_ACT_FF;
 
     
     
     // check card1, 2, 3, timer_card18, special_60s_timer 
     logic clk, reset_test;
-    clock_divider clk_divider (.clk_out(clk), .clk_in(sys_clk50), .reset(i_C2_RLY_RESET_FF));
-    assign reset_test = 1'b0;
+    clock_divider clk_divider (.clk_out(clk), .clk_in(sys_clk50), .reset(1'b0));
+    //assign reset_test = 1'b0;
 
-    assign {o_TP1, o_TP2, o_TP3, o_TP4, o_TP5} = 5'b0;
+    assign {o_TP4, o_TP5} = 2'b00;
     
-    always_ff @(posedge clk)
-        o_UART_TX <= ~o_UART_TX;
+//    always_ff @(posedge clk)
+//        o_UART_TX <= ~o_UART_TX;
+    assign o_UART_TX = i_UART_RX_FF;
 
     inputFF inputFF1 (.clk(clk), .reset(reset_test), .out(i_OT_AN_Ready_FF), .in(i_OT_AN_Ready));
     inputFF inputFF2 (.clk(clk), .reset(reset_test), .out(i_Card_POS_FF), .in(i_Card_POS));
@@ -187,7 +188,7 @@ module RPSC_FPGA_TOP(input logic sys_clk50,
     inputFF inputFF12 (.clk(clk), .reset(reset_test), .out(i_HV_Connector_FF), .in(i_HV_Connector));
     inputFF inputFF13 (.clk(clk), .reset(reset_test), .out(i_CA_PS_ACT_FF), .in(i_CA_PS_ACT));
     inputFF inputFF14 (.clk(clk), .reset(reset_test), .out(i_C2_RLY_EM_FF), .in(i_C2_RLY_EM));
-    inputFF inputFF15 (.clk(clk), .reset(1'b0), .out(i_C2_RLY_RESET_FF), .in(i_C2_RLY_RESET));
+    inputFF inputFF15 (.clk(clk), .reset(reset_test), .out(i_C2_RLY_RESET_FF), .in(i_C2_RLY_RESET)); // use other pin to substitute reset for now
     inputFF inputFF16 (.clk(clk), .reset(reset_test), .out(i_LA_TEST_FF), .in(i_LA_TEST));
     inputFF inputFF17 (.clk(clk), .reset(reset_test), .out(i_U_G1_LOW_FF), .in(i_U_G1_LOW));
     inputFF inputFF18 (.clk(clk), .reset(reset_test), .out(i_U_G2_LOW_FF), .in(i_U_G2_LOW));
@@ -217,6 +218,12 @@ module RPSC_FPGA_TOP(input logic sys_clk50,
     inputFF inputFF42 (.clk(clk), .reset(reset_test), .out(i_G1_PS_Local_FF), .in(i_G1_PS_Local));
     inputFF inputFF43 (.clk(clk), .reset(reset_test), .out(i_G1_PS_ACT_FF), .in(i_G1_PS_ACT));
 
+    //assign i_G2_PS_Fault_FF = i_G1_PS_Fault_FF;
+
+    assign o_TP1 = i_C2_RLY_RESET_FF;
+    assign o_TP2 = i_LA_TEST_FF;
+    assign reset_test = 1'b0;
+    
     RPSC_Connection RPSC_Instantiation (
         // C1
         .clk(clk), .reset(reset_test), .reset_hold_error(i_C2_RLY_RESET_FF), .LA_TEST(i_LA_TEST_FF), 

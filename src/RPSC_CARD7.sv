@@ -1,6 +1,6 @@
 // Reset is modifiedi4_FF1_Emergency_IN
 // Unsure: 77 LT and LAMPTEST
-module RPSC_CARD7(clk, reset, LA_Test,
+module RPSC_CARD7(clk, reset, reset_hold_error, LA_Test,
                     i4_FF1_Emergency_IN, 
                     i17_FF2_Card_POS_IN, 
                     i23_FF3_Air_Grid_IN, 
@@ -18,7 +18,7 @@ module RPSC_CARD7(clk, reset, LA_Test,
                     o65_FF7_Door_PAMP_OUT, o62_FF7_Door_PAMP_LA,
                     o74_FF8_GR_SW_OUT, o78_FF8_GR_SW_LA);
 
-    input logic clk, reset, LA_Test;
+    input logic clk, reset, reset_hold_error, LA_Test;
     input logic i4_FF1_Emergency_IN, 
                 i17_FF2_Card_POS_IN, 
                 i23_FF3_Air_Grid_IN, 
@@ -74,7 +74,7 @@ module RPSC_CARD7(clk, reset, LA_Test,
         .out(o45_FF5_Water_Heat_Exchanger_OUT), 
         .LA(o42_FF5_Water_Heat_Exchanger_LA), 
         .in(i43_FF5_Water_Heat_Exchanger_IN), 
-        .reset(reset), 
+        .reset(reset_hold_error), 
         .LA_Test(LA_Test), 
         .clk(clk));
     
@@ -82,7 +82,7 @@ module RPSC_CARD7(clk, reset, LA_Test,
         .out(o55_FF6_Water_Anode_OUT), 
         .LA(o59_FF6_Water_Anode_LA), 
         .in(i57_FF6_Water_Anode_IN), 
-        .reset(reset), 
+        .reset(reset_hold_error), 
         .LA_Test(LA_Test), 
         .clk(clk));
 

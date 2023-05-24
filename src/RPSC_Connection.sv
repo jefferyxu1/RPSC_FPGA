@@ -303,6 +303,7 @@ module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST,
     RPSC_CARD7 card7 (
         .clk(clk), 
         .reset(reset), 
+        .reset_hold_error(reset_hold_error),
         .LA_Test(LA_TEST),
         .i4_FF1_Emergency_IN(C6_o47_Emergency_to_C7_i4_FF1_Emergency_IN), 
         .i17_FF2_Card_POS_IN(i_Card_POS), // from analog card to make sure all cards are connected
