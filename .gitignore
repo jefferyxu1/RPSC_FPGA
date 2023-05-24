@@ -13,3 +13,7 @@
 
 !/src/
 !/src/*.sv
+
+!/others
+!/others/*
+!/others/*/*
