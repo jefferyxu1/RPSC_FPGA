@@ -18,8 +18,8 @@ set_property IOSTANDARD LVCMOS33 [get_ports {o_TP1}]
 set_property PACKAGE_PIN D22 [get_ports {o_TP2}]
 set_property IOSTANDARD LVCMOS33 [get_ports {o_TP2}]
 
-set_property PACKAGE_PIN B21 [get_ports {i_TP3}]
-set_property IOSTANDARD LVCMOS33 [get_ports {i_TP3}]
+set_property PACKAGE_PIN B21 [get_ports {o_TP3}]
+set_property IOSTANDARD LVCMOS33 [get_ports {o_TP3}]
 
 set_property PACKAGE_PIN B22 [get_ports {o_TP4}]
 set_property IOSTANDARD LVCMOS33 [get_ports {o_TP4}]

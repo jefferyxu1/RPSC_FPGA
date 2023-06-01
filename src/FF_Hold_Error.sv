@@ -2,17 +2,26 @@ module FF_Hold_Error (out, LA, in, reset, LA_Test, clk);
     input logic in, reset, LA_Test, clk;
     output logic out, LA;
 
-    logic in_mux_out;
+    // logic in_mux_out;
+
+    // always_ff @(posedge clk) begin
+    //     if (reset)
+    //         out <= 1'b0;
+    //     else
+    //         out <= ~in_mux_out;
+    // end
+
+    // assign LA = out | LA_Test;
+    // assign in_mux_out = out? 1'b0 : in;
+
+    assign LA = out | LA_Test;
 
     always_ff @(posedge clk) begin
         if (reset)
             out <= 1'b0;
         else
-            out <= ~in_mux_out;
+            out <= ~in;
     end
-
-    assign LA = out | LA_Test;
-    assign in_mux_out = out? 1'b0 : in;
 
 endmodule
 

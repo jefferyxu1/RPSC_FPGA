@@ -4,7 +4,7 @@ module timer #(parameter WIDTH = 8) (clk, reset, target, in, hit_target);
     output logic hit_target;
 
     logic hit;
-    logic [WIDTH-1:0] reg_count;
+    logic [WIDTH-1:0] reg_count = 0;
     
     always_ff @(posedge clk) begin
         if (reset | (~in)) begin

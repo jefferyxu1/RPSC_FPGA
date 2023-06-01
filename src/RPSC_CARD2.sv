@@ -5,7 +5,7 @@ module RPSC_CARD2(
     i46_DC_PS, i45_HV_Connector, i44_Card_POS, i72_U_AN_Low, i59_AN_PS_ACT, 
     i42_Not_OT_AN_Ready, o19_Not_G1_ON, o13_Not_Alarm, o14_Not_G1_ON_PERM, 
     o36_Not_G1_OK, o33_Not_U_G1_Low, o39_GR_OK_Modified, o55_Not_Alarm, o62_AN_ON, o57_Not_TH_AN_Ready, 
-    o47_ON_PERM, o75_Not_AN_OK, o70_Not_U_AN_Low, o78_Not_GR_OK
+    o47_ON_PERM, o75_Not_AN_OK, o70_Not_U_AN_Low, o78_Not_GR_OK, TM2s_in, TM2s_out
 );
     input logic clk, reset;
     input logic i10_Card_POS, i9_Emergency, i8_Door_PAMP, i7_I_G1_High, i6_DC_PS, i5_U_G1_Low, i18_G1_PS_ACT, i32_G_U1_Low;
@@ -14,7 +14,9 @@ module RPSC_CARD2(
     output logic o19_Not_G1_ON, o13_Not_Alarm, o14_Not_G1_ON_PERM, o36_Not_G1_OK, o33_Not_U_G1_Low, o39_GR_OK_Modified;
     output logic o55_Not_Alarm, o62_AN_ON, o57_Not_TH_AN_Ready, o47_ON_PERM, o75_Not_AN_OK, o70_Not_U_AN_Low, o78_Not_GR_OK;
 
-    logic Not_G1_ON_PERM, Not_Alarm, TM2s_in, TM2s_out, Not_G1_OK;
+    output logic TM2s_in, TM2s_out;
+
+    logic Not_G1_ON_PERM, Not_Alarm, Not_G1_OK;
     logic Not_Alarm2, TH_AN_Ready, Not_ON_PERM, Node1, TM4s_in, TM4s_out;
 
     // Schematic card 2 - 1
@@ -24,8 +26,8 @@ module RPSC_CARD2(
     assign Not_G1_OK = ~TM2s_out;
 
     // 2 second timer when clk period is 1.28us
-    //timer #(.WIDTH(21)) timer2s (.clk(clk), .reset(reset), .target(21'd1562500), .in(TM2s_in), .hit_target(TM2s_out));
-    timer #(.WIDTH(4)) timer2s_test (.clk(clk), .reset(reset), .target(4'd8), .in(TM2s_in), .hit_target(TM2s_out));
+    timer #(.WIDTH(21)) timer2s (.clk(clk), .reset(reset), .target(21'd1562500), .in(TM2s_in), .hit_target(TM2s_out));
+    //timer #(.WIDTH(4)) timer2s_test (.clk(clk), .reset(reset), .target(4'd8), .in(TM2s_in), .hit_target(TM2s_out));
 
     assign o19_Not_G1_ON = ~i18_G1_PS_ACT;
     assign o13_Not_Alarm = Not_Alarm;
@@ -42,8 +44,8 @@ module RPSC_CARD2(
     assign TM4s_in = i72_U_AN_Low & Node1;
 
     // when clk period is 1.28us
-    // timer #(.WIDTH(22)) timer4s (.clk(clk), .reset(reset), .target(22'd3125000), .in(TM4s_in), .hit_target(TM4s_out));
-    timer #(.WIDTH(4)) timer4s_test (.clk(clk), .reset(reset), .target(4'd15), .in(TM4s_in), .hit_target(TM4s_out));
+    timer #(.WIDTH(22)) timer4s (.clk(clk), .reset(reset), .target(22'd3125000), .in(TM4s_in), .hit_target(TM4s_out));
+    //timer #(.WIDTH(4)) timer4s_test (.clk(clk), .reset(reset), .target(4'd15), .in(TM4s_in), .hit_target(TM4s_out));
 
     assign o55_Not_Alarm = Not_Alarm2;
     assign o62_AN_ON = ~i59_AN_PS_ACT;

@@ -35,9 +35,11 @@ module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST,
                 o_LA_U_CA_Low, o_LA_I_CA_High, o_LA_U_G1_Low, o_LA_U_AN_Low, o_LA_I_AN_High, o_LA_U_G2_Low,
                 o_LA_DC_PS_Low, o_LA_Alarm,
 
-                o_EP7_36, o_EP7_37, o_EP7_38, o_EP7_44, o_EP7_42, o_EP7_43, o_EP7_41, o_EP7_40, o_EP7_39
-    );
+                o_EP7_36, o_EP7_37, o_EP7_38, o_EP7_44, o_EP7_42, o_EP7_43, o_EP7_41, o_EP7_40, o_EP7_39,
 
+                TM2s_in, TM2s_out, c2_o13
+    );
+    output logic TM2s_in, TM2s_out, c2_o13;
     // Naming Convention 
     // input/output examples: i_EP1_1, o_EP1_2
     // if EP is not a real IO, then no i_ or o_, just EP
@@ -195,6 +197,7 @@ module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST,
 
 
     RPSC_CARD2 card2 (
+        .TM2s_in(TM2s_in), .TM2s_out(TM2s_out),
         .clk(clk), 
         .reset(reset), 
         .i10_Card_POS(C7_o15_FF2_Card_POS_OUT_to_C1_i51_C2_i10_C2_i44_C3_i6_C3_i51_C5_i7_Card_POS), 
@@ -478,6 +481,7 @@ module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST,
         .o76_Not_Full_RF(o_EP7_40), 
         .o74_Not_HV_Ready(o_EP7_39));
 
+        assign c2_o13 = C2_o13_Not_Alarm_to_C6_i25_G1_PS_Control;
 //------------------------------------------------------------
 
 endmodule
