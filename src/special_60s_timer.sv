@@ -1,4 +1,4 @@
-module special_60s_timer(clk, reset, in, hit_target);
+module special_60s_timer #(parameter test_mode = 0) (clk, reset, in, hit_target);
     input logic clk, reset, in;
     output logic hit_target;
 
@@ -13,11 +13,14 @@ module special_60s_timer(clk, reset, in, hit_target);
 
     // Clock Period 1.28 us
     // 46875000 correct value
-    timer #(.WIDTH(26)) timer60s (.clk(clk), .reset(reset), .target(26'd4687500), .in(in), .hit_target(on60s));
-
-    // Shorter Counter for testbench, instantiate this one and comment the previous one when testbenching
-    //timer #(.WIDTH(6)) timer60s (.clk(clk), .reset(reset), .target(6'd60), .in(in), .hit_target(on60s));
-
+    // Shorter Counter for testbench. Correct Timer for implementation
+    generate
+        if (test_mode)
+            timer #(.WIDTH(6)) timer60s (.clk(clk), .reset(reset), .target(6'd60), .in(in), .hit_target(on60s));
+        else
+            timer #(.WIDTH(26)) timer60s (.clk(clk), .reset(reset), .target(26'd4687500), .in(in), .hit_target(on60s));
+    endgenerate
+    
     always_ff @(posedge clk) begin
         if (reset) ps <= s_start;
         else ps <= ns;

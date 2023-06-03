@@ -1,5 +1,6 @@
 `timescale 1ns / 1ps
-module RPSC_FPGA_TOP(input logic sys_clk50, 
+module RPSC_FPGA_TOP (
+    input logic sys_clk, 
     input logic i_OT_AN_Ready,
     input logic i_Card_POS,
     input logic i_FAN_ACT,
@@ -165,8 +166,8 @@ module RPSC_FPGA_TOP(input logic sys_clk50,
     
     // check card1, 2, 3, timer_card18, special_60s_timer 
     logic clk, reset_test;
-    clock_divider clk_divider (.clk_out(clk), .clk_in(sys_clk50), .reset(1'b0));
-    //assign reset_test = 1'b0;
+    clock_divider #(.test_mode(0)) clk_divider (.clk_out(clk), .clk_in(sys_clk), .reset(1'b0));
+    assign reset_test = 1'b0; // This reset is not reset relay. It's for FF that intents never reset
     
     assign o_UART_TX = i_UART_RX_FF;
 
@@ -215,9 +216,7 @@ module RPSC_FPGA_TOP(input logic sys_clk50,
     inputFF inputFF43 (.clk(clk), .reset(reset_test), .out(i_G1_PS_ACT_FF), .in(i_G1_PS_ACT));
 
 
-    assign reset_test = 1'b0;
-    logic c2_o13, TM2s_in, TM2s_out;
-    RPSC_Connection RPSC_Instantiation (
+    RPSC_Connection #(.test_mode(0)) RPSC_Instantiation (
         // C1
         .clk(clk), .reset(reset_test), .reset_hold_error(i_C2_RLY_RESET_FF), .LA_TEST(i_LA_TEST_FF), 
         .i_EP1_5(i_FAN_ON_PERM_FF), .i_EP1_4(i_FAN_ACT_FF), .i_EP1_37(i_CA_PS_ACT_FF), 
@@ -227,7 +226,6 @@ module RPSC_FPGA_TOP(input logic sys_clk50,
         .i_EP2_5(i_G1_PS_ACT_FF), /*ACT or Ready*/ .i_C15_22_U_G1_Low(i_U_G1_LOW_FF), .i_C15_74_U_AN_Low(i_U_AN_LOW_FF),
         .i_EP3_5(i_AN_PS_ACT_FF), .i_EP7_2(i_OT_AN_Ready_FF),
         .o_EP7_1(o_TH_AN_Ready), .o_C2_BJT_39(o_C2_RLY_G1), .o_C2_BJT_78(o_C2_RLY_AN),
-        .TM2s_in(TM2s_in), .TM2s_out(TM2s_out), .c2_o13(c2_o13),
 
         // C3
         .i_EP4_5(i_G2_PS_ACT_FF), .i_C15_50_U_G2_Low(i_U_G2_LOW), .i_EP5_5(i_DR_AMP_FF),
@@ -284,9 +282,10 @@ module RPSC_FPGA_TOP(input logic sys_clk50,
         .o_EP7_44(o_HV_ON_BAR), .o_EP7_43(o_HV_OFF_BAR), .o_EP7_41(o_RED_RF_BAR), .o_EP7_40(o_FULL_RF_BAR), .o_EP7_39(o_HV_Ready_BAR)
     );
 
-        assign o_TP1 = TM2s_in;
-        assign o_TP2 = TM2s_out;
-        assign o_TP3 = c2_o13;
+        // Used for debugging. Change the signal to the one you want to test
+        assign o_TP1 = 1'b0;
+        assign o_TP2 = 1'b0;
+        assign o_TP3 = 1'b0;
         assign o_TP4 = 1'b0;
         assign o_TP5 = 1'b0;
 endmodule

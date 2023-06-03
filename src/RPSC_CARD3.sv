@@ -1,4 +1,4 @@
-module RPSC_CARD3(
+module RPSC_CARD3 #(parameter test_mode = 0) (
     clk, reset, i15_AN_PS, i10_I_AN_High, i9_I_G2_High, i8_DC_PS, i7_U_AN_Low, 
     i6_Card_POS, i5_Emergency, i4_U_G2_Low, i18_G2_PS_ACT, i32_G_U2_Low, 
     i51_Card_POS, i50_Emergency, i49_DRAC_Overtemp, i59_DR_AMP, o13_Not_Alarm, 
@@ -19,10 +19,13 @@ module RPSC_CARD3(
     assign Ground_Hold_OK = Not_Alarm & (~i15_AN_PS);
     assign TM2s_in = i18_G2_PS_ACT & Ground_Hold_OK;
     
-    // When clk period is 1.28us
-    timer #(.WIDTH(21)) timer2s (.clk(clk), .reset(reset), .target(21'd1562500), .in(TM2s_in), .hit_target(TM2s_out));
-    //timer #(.WIDTH(4)) timer2s (.clk(clk), .reset(reset), .target(4'd8), .in(TM2s_in), .hit_target(TM2s_out));
-
+    // shorter timer for testbench
+    generate 
+        if (test_mode)
+            timer #(.WIDTH(4)) timer2s (.clk(clk), .reset(reset), .target(4'd8), .in(TM2s_in), .hit_target(TM2s_out));
+        else
+            timer #(.WIDTH(21)) timer2s (.clk(clk), .reset(reset), .target(21'd1562500), .in(TM2s_in), .hit_target(TM2s_out));
+    endgenerate
     assign o13_Not_Alarm = Not_Alarm;
     assign o39_Ground_Hold_OK = Ground_Hold_OK; //+transistor
     assign o14_Not_ON_PERM = ~Ground_Hold_OK;

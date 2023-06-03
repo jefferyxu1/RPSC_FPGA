@@ -4,7 +4,8 @@ module timer #(parameter WIDTH = 8) (clk, reset, target, in, hit_target);
     output logic hit_target;
 
     logic hit;
-    logic [WIDTH-1:0] reg_count = 0;
+    logic [WIDTH-1:0] reg_count = 0; 
+    // You could force flip flop to initialize with 0. But FPGA should start with 0 by default.
     
     always_ff @(posedge clk) begin
         if (reset | (~in)) begin

@@ -1,4 +1,4 @@
-module RPSC_CARD1(o19_FAN_ON, o14_FAN_ON_PERM, o55_Not_Alarm, 
+module RPSC_CARD1 #(parameter test_mode = 0) (o19_FAN_ON, o14_FAN_ON_PERM, o55_Not_Alarm, 
     o47_CA_ON_PERM, o62_CA_ON, o74_CA_Delay, o75_Not_CA_OK, 
     o70_I_CA_High, o77_U_CA_Low, o78_Modified, clk, reset, 
     i17_FAN_ON_PERM, i18_FAN_ACT, i54_FAN_ON, i53_Not_G1_OK, i59_CA_PS_ACT,  
@@ -24,10 +24,14 @@ module RPSC_CARD1(o19_FAN_ON, o14_FAN_ON_PERM, o55_Not_Alarm,
     assign andControl = norControl & i59_CA_PS_ACT;
 
     // Using smaller parameter when testing
-    // Assume clock period 1.28 us
-    timer #(.WIDTH(22)) timer4s (.clk(clk), .reset(reset), .target(22'd3125000), .in(andControl), .hit_target(on_4s));
-    //timer #(.WIDTH(4)) timer4s_test (.clk(clk), .reset(reset), .target(4'd15), .in(andControl), .hit_target(on_4s));
-    special_60s_timer timer60s (.clk(clk), .reset(reset), .in(on_4s), .hit_target(on_60s));
+    generate // https://fpgatutorial.com/verilog-generate/ A good explaining for generate statement and parameter
+        if (test_mode)
+            timer #(.WIDTH(4)) timer4s_test (.clk(clk), .reset(reset), .target(4'd15), .in(andControl), .hit_target(on_4s));
+        else
+            timer #(.WIDTH(22)) timer4s (.clk(clk), .reset(reset), .target(22'd3125000), .in(andControl), .hit_target(on_4s));
+    endgenerate
+
+    special_60s_timer #(.test_mode(test_mode)) timer60s (.clk(clk), .reset(reset), .in(on_4s), .hit_target(on_60s));
 
     assign o55_Not_Alarm = norStatus;
     assign o47_CA_ON_PERM = ~norControl;
@@ -39,7 +43,7 @@ module RPSC_CARD1(o19_FAN_ON, o14_FAN_ON_PERM, o55_Not_Alarm,
     assign o77_U_CA_Low = ~(on_4s & i76_U_CA_Low);
 
 endmodule
-/*
+
 module RPSC_CARD1_testbench();
     logic o19_FAN_ON, o14_FAN_ON_PERM;
     logic i17_FAN_ON_PERM, i18_FAN_ACT;
@@ -77,4 +81,3 @@ module RPSC_CARD1_testbench();
     end
 
 endmodule
-*/

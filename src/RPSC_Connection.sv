@@ -1,5 +1,5 @@
 `timescale 1ns/1ns
-module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST, 
+module RPSC_Connection #(parameter test_mode = 0) (clk, reset, reset_hold_error, LA_TEST, 
                 i_EP1_5, i_EP1_4, i_EP1_37, i_C14_46_I_CA_High, i_C14_74_U_CA_Low,
                 o_C1_BJT_78,
 
@@ -35,11 +35,8 @@ module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST,
                 o_LA_U_CA_Low, o_LA_I_CA_High, o_LA_U_G1_Low, o_LA_U_AN_Low, o_LA_I_AN_High, o_LA_U_G2_Low,
                 o_LA_DC_PS_Low, o_LA_Alarm,
 
-                o_EP7_36, o_EP7_37, o_EP7_38, o_EP7_44, o_EP7_42, o_EP7_43, o_EP7_41, o_EP7_40, o_EP7_39,
-
-                TM2s_in, TM2s_out, c2_o13
+                o_EP7_36, o_EP7_37, o_EP7_38, o_EP7_44, o_EP7_42, o_EP7_43, o_EP7_41, o_EP7_40, o_EP7_39
     );
-    output logic TM2s_in, TM2s_out, c2_o13;
     // Naming Convention 
     // input/output examples: i_EP1_1, o_EP1_2
     // if EP is not a real IO, then no i_ or o_, just EP
@@ -165,7 +162,7 @@ module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST,
 
 //------------------------------------------------------------
 
-    RPSC_CARD1 card1 (
+    RPSC_CARD1 #(.test_mode(test_mode)) card1 (
         .o19_FAN_ON(C1_o19_FAN_ON_to_C1_i54_C10_i17_C18_i4_FAN_ON), 
         .o14_FAN_ON_PERM(C1_o14_FAN_ON_PERM_to_C10_i4_FF25_FAN_ON_PERM_IN),
         .o55_Not_Alarm(C1_o55_Not_Alarm_to_C6_i34_CA_PS_Control), 
@@ -196,8 +193,7 @@ module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST,
 
 
 
-    RPSC_CARD2 card2 (
-        .TM2s_in(TM2s_in), .TM2s_out(TM2s_out),
+    RPSC_CARD2 #(.test_mode(test_mode)) card2 (
         .clk(clk), 
         .reset(reset), 
         .i10_Card_POS(C7_o15_FF2_Card_POS_OUT_to_C1_i51_C2_i10_C2_i44_C3_i6_C3_i51_C5_i7_Card_POS), 
@@ -236,7 +232,7 @@ module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST,
 
 
 
-    RPSC_CARD3 card3 (
+    RPSC_CARD3 #(.test_mode(test_mode)) card3 (
         .clk(clk), 
         .reset(reset), 
         .i15_AN_PS(C2_o75_Not_AN_OK_to_C3_i15_AN_PS), 
@@ -480,8 +476,6 @@ module RPSC_Connection(clk, reset, reset_hold_error, LA_TEST,
         .o78_Not_RED_RF(o_EP7_41), 
         .o76_Not_Full_RF(o_EP7_40), 
         .o74_Not_HV_Ready(o_EP7_39));
-
-        assign c2_o13 = C2_o13_Not_Alarm_to_C6_i25_G1_PS_Control;
 //------------------------------------------------------------
 
 endmodule

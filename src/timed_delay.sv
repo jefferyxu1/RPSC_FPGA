@@ -1,4 +1,4 @@
-module timed_delay #(parameter WIDTH = 8) (clk, reset, target, in, hit_target);
+module timed_delay #(parameter WIDTH = 8) (clk, reset, target, in, hit_target); // may not be used
     input logic clk, reset, in;
     input logic [WIDTH-1:0] target;
     output logic hit_target;
