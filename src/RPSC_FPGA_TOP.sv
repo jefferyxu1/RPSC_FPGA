@@ -116,7 +116,8 @@ module RPSC_FPGA_TOP (
     output logic o_RF_PERM_BAR,
     output logic o_RF_RED_BAR);
 
-
+    parameter CLOCK_RATE = 100_000_000; // board internal clock
+    parameter BAUD_RATE = 115_200;
 
     logic i_OT_AN_Ready_FF,
         i_Card_POS_FF,
@@ -168,8 +169,6 @@ module RPSC_FPGA_TOP (
     logic clk, reset_test;
     clock_divider #(.test_mode(0)) clk_divider (.clk_out(clk), .clk_in(sys_clk), .reset(1'b0));
     assign reset_test = 1'b0; // This reset is not reset relay. It's for FF that intents never reset
-    
-    assign o_UART_TX = i_UART_RX_FF;
 
     inputFF inputFF1 (.clk(clk), .reset(reset_test), .out(i_OT_AN_Ready_FF), .in(i_OT_AN_Ready));
     inputFF inputFF2 (.clk(clk), .reset(reset_test), .out(i_Card_POS_FF), .in(i_Card_POS));
@@ -288,4 +287,10 @@ module RPSC_FPGA_TOP (
         assign o_TP3 = 1'b0;
         assign o_TP4 = 1'b0;
         assign o_TP5 = 1'b0;
+
+    logic [7:0] uart_tx_data;
+    assign uart_tx_data = {1'b1, o_LA_DR_AMP_ON_PERM, o_LA_Grid2_ON_PERM, o_LA_Anode_ON_PERM, o_LA_Cathode_ON_PERM, 
+                            o_LA_Grid_ON_PERM, o_LA_FAN_ON, 1'b1};
+    Uart8 #(.CLOCK_RATE(CLOCK_RATE), .BAUD_RATE(BAUD_RATE)) urt (.clk(sys_clk), .in(uart_tx_data), .tx(o_UART_TX));
+    
 endmodule

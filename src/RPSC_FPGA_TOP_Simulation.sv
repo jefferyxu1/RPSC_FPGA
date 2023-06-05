@@ -365,15 +365,20 @@ module RPSC_FPGA_TOP_Simulation_testbench();
         i_UART_RX <= 1'b1;
         @(posedge clk);
         i_C2_RLY_RESET <= 1'b0; reset_test <= 1'b0; @(posedge clk);
-        repeat(200) @(posedge clk);
+        repeat(100) @(posedge clk);
     endtask
 
+    // Free to toggle inputs here
     task somethingWrong;
-        //i_FAN_ON_PERM <= 1'b0;
         i_FAN_ACT <= 1'b0;
-        //i_C2_RLY_EM <= 1'b0;
-        //i_G2_PS_Fault <= 1'b0;
-        repeat(200) @(posedge clk);
+        
+        repeat(100) @(posedge clk);
+        i_FAN_ACT <= 1'b1;
+        repeat(100) @(posedge clk);
+        i_G2_PS_Fault <= 1'b0;
+        repeat(10) @(posedge clk);
+        i_C2_RLY_EM <= 1'b0;
+        repeat(10) @(posedge clk);
     endtask
 
     initial begin

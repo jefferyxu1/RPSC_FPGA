@@ -11,14 +11,13 @@ module Uart8  #(
     parameter BAUD_RATE = 115200
 )(
     input wire clk,
-
+    input wire [7:0] in,
     // tx interface
     output wire tx
 );
 wire txDone;
 reg txStart;
 reg [15:0] count = 0;
-reg [7:0] in = 0;
 wire rxClk;
 wire txClk; 
 
@@ -26,10 +25,6 @@ reg txDone1;
 
 always @(posedge clk) begin
     txDone1 <= txDone;
-end
-
-always @(posedge txDone1) begin
-    in <= in + 1;
 end
 
 BaudRateGenerator #(

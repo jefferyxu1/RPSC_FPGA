@@ -16,7 +16,7 @@ module special_60s_timer #(parameter test_mode = 0) (clk, reset, in, hit_target)
     // Shorter Counter for testbench. Correct Timer for implementation
     generate
         if (test_mode)
-            timer #(.WIDTH(6)) timer60s (.clk(clk), .reset(reset), .target(6'd60), .in(in), .hit_target(on60s));
+            timer #(.WIDTH(6)) timer60s (.clk(clk), .reset(reset), .target(5'd30), .in(in), .hit_target(on60s));
         else
             timer #(.WIDTH(26)) timer60s (.clk(clk), .reset(reset), .target(26'd4687500), .in(in), .hit_target(on60s));
     endgenerate
