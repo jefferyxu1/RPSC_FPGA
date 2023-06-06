@@ -1,9 +1,9 @@
-// Slow down clock period to 1.28 micro second
+// Slow down clock period to 1.28 micro second when using 50Mhz clock
 module clock_divider #(parameter test_mode = 1) (clk_out, clk_in, reset);
     input logic clk_in, reset;
     output logic clk_out;
 
-    logic [6:0] counter;
+    logic [5:0] counter;
     generate
         if (test_mode) begin
             assign clk_out = clk_in;
@@ -11,11 +11,11 @@ module clock_divider #(parameter test_mode = 1) (clk_out, clk_in, reset);
         else begin
             always_ff @(posedge clk_in) begin
                 if (reset)
-                    counter <= 6'd0;
+                    counter <= 0;
                 else
-                    counter <= counter + 6'd1;
+                    counter <= counter + 1;
             end
-            assign clk_out = counter[6];
+            assign clk_out = counter[5];
         end
     endgenerate
 endmodule

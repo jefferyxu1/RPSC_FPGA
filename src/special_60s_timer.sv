@@ -18,7 +18,7 @@ module special_60s_timer #(parameter test_mode = 0) (clk, reset, in, hit_target)
         if (test_mode)
             timer #(.WIDTH(6)) timer60s (.clk(clk), .reset(reset), .target(5'd30), .in(in), .hit_target(on60s));
         else
-            timer #(.WIDTH(26)) timer60s (.clk(clk), .reset(reset), .target(26'd4687500), .in(in), .hit_target(on60s));
+            timer #(.WIDTH(26)) timer60s (.clk(clk), .reset(reset), .target(26'd46875000), .in(in), .hit_target(on60s));
     endgenerate
     
     always_ff @(posedge clk) begin
