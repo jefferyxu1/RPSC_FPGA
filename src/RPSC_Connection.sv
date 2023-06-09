@@ -1,4 +1,6 @@
-`timescale 1ns/1ns
+`timescale 1ns/1ns  
+// Test mode = 0 is implementation mode. Test mode = 1 is simulation mode
+// This module integrates all RPSC Cards
 module RPSC_Connection #(parameter test_mode = 0) (clk, reset, reset_hold_error, LA_TEST, 
                 i_EP1_5, i_EP1_4, i_EP1_37, i_C14_46_I_CA_High, i_C14_74_U_CA_Low,
                 o_C1_BJT_78,

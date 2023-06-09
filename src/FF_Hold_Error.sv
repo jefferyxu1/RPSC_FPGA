@@ -1,27 +1,33 @@
-module FF_Hold_Error (out, LA, in, reset, LA_Test, clk);
+// The parameter decides whether the LA is on or off when the reset is pressed. Default off when the reset pressed.
+module FF_Hold_Error #(parameter LA_on_when_Reset = 0) (out, LA, in, reset, LA_Test, clk);
     input logic in, reset, LA_Test, clk;
     output logic out, LA;
 
-    // logic in_mux_out;
-
-    // always_ff @(posedge clk) begin
-    //     if (reset)
-    //         out <= 1'b0;
-    //     else
-    //         out <= ~in_mux_out;
-    // end
-
-    // assign LA = out | LA_Test;
-    // assign in_mux_out = out? 1'b0 : in;
-
-    assign LA = out | LA_Test;
+    logic in_mux_out;
 
     always_ff @(posedge clk) begin
         if (reset)
             out <= 1'b0;
         else
-            out <= ~in;
+            out <= ~in_mux_out;
     end
+
+    generate
+        if (LA_on_when_Reset)
+            assign LA = out | LA_Test | reset;
+        else
+            assign LA = out | LA_Test;
+    endgenerate
+    assign in_mux_out = out? 1'b0 : in;
+
+    // assign LA = out | LA_Test;
+
+    // always_ff @(posedge clk) begin
+    //     if (reset)
+    //         out <= 1'b0;
+    //     else
+    //         out <= ~in;
+    // end
 
 endmodule
 

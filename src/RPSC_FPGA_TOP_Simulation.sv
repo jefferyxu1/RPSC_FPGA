@@ -363,22 +363,32 @@ module RPSC_FPGA_TOP_Simulation_testbench();
         i_G1_PS_Local <= 1'b1; // FF10 C8
         i_G1_PS_ACT <= 1'b1; // Affect FF27 C10, FF29 C10, FF30 C10
         i_UART_RX <= 1'b1;
-        @(posedge clk);
-        i_C2_RLY_RESET <= 1'b0; reset_test <= 1'b0; @(posedge clk);
+        repeat(5) @(posedge clk); 
+        reset_test <= 1'b0;
+        repeat(5) @(posedge clk);
+        i_C2_RLY_RESET <= 1'b0; 
         repeat(100) @(posedge clk);
     endtask
 
     // Free to toggle inputs here
     task somethingWrong;
-        i_FAN_ACT <= 1'b0;
+        // i_FAN_ACT <= 1'b0;
         
-        repeat(100) @(posedge clk);
-        i_FAN_ACT <= 1'b1;
-        repeat(100) @(posedge clk);
-        i_G2_PS_Fault <= 1'b0;
-        repeat(10) @(posedge clk);
-        i_C2_RLY_EM <= 1'b0;
-        repeat(10) @(posedge clk);
+        // repeat(100) @(posedge clk);
+        // i_FAN_ACT <= 1'b1;
+        // repeat(100) @(posedge clk);
+        // i_G2_PS_Fault <= 1'b0;
+        // repeat(10) @(posedge clk);
+        // i_C2_RLY_EM <= 1'b0;
+        // repeat(10) @(posedge clk);
+        // i_G2_PS_Fault <= 1'b0;
+        // repeat(10) @(posedge clk);
+        // i_G2_PS_Fault <= 1'b1;
+        // repeat(50) @(posedge clk);
+        // i_C2_RLY_RESET <= 1'b1;
+        // repeat(10) @(posedge clk);
+        // i_C2_RLY_RESET <= 1'b0;
+        // repeat(10) @(posedge clk);
     endtask
 
     initial begin
