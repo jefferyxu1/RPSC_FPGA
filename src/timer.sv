@@ -1,3 +1,4 @@
+// Target is the number of clock cycles you want to wait to let hit_target to be 1 while in is 1.
 module timer #(parameter WIDTH = 8) (clk, reset, target, in, hit_target);
     input logic clk, reset, in;
     input logic [WIDTH-1:0] target;

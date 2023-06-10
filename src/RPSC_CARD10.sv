@@ -1,4 +1,4 @@
-module RPSC_CARD10(clk, reset, LA_Test,
+module RPSC_CARD10(clk, reset, reset_hold_error, LA_Test,
                     i4_FF25_FAN_ON_PERM_IN,
                     i17_FF26_FAN_ON_IN,
                     i23_FF27_CA_ON_PERM_IN,
@@ -16,7 +16,7 @@ module RPSC_CARD10(clk, reset, LA_Test,
                     o62_FF31_Anode_ON_PERM_LA,
                     o78_FF32_Anode_ON_LA);
 
-    input logic clk, reset, LA_Test,
+    input logic clk, reset, reset_hold_error, LA_Test,
             i4_FF25_FAN_ON_PERM_IN,
             i17_FF26_FAN_ON_IN,
             i23_FF27_CA_ON_PERM_IN,
@@ -35,11 +35,11 @@ module RPSC_CARD10(clk, reset, LA_Test,
                  o62_FF31_Anode_ON_PERM_LA,
                  o78_FF32_Anode_ON_LA;
 
-    FF FF25 (
+    FF #(.initial_low(1)) FF25 (
         .out(), 
         .LA(o3_FF25_FAN_ON_PERM_LA), 
         .in(i4_FF25_FAN_ON_PERM_IN), 
-        .reset(reset), 
+        .reset(reset_hold_error), 
         .LA_Test(LA_Test), 
         .clk(clk));
 
@@ -51,11 +51,11 @@ module RPSC_CARD10(clk, reset, LA_Test,
         .LA_Test(LA_Test), 
         .clk(clk));
 
-    FF FF27 (
+    FF #(.initial_low(1)) FF27 (
         .out(), 
         .LA(o22_FF27_CA_ON_PERM_LA), 
         .in(i23_FF27_CA_ON_PERM_IN), 
-        .reset(reset), 
+        .reset(reset_hold_error), 
         .LA_Test(LA_Test), 
         .clk(clk));
 
@@ -67,11 +67,11 @@ module RPSC_CARD10(clk, reset, LA_Test,
         .LA_Test(LA_Test), 
         .clk(clk));
     
-    FF FF29 (
+    FF #(.initial_low(1)) FF29 (
         .out(), 
         .LA(o42_FF29_G1_ON_PERM_LA), 
         .in(i43_FF29_G1_ON_PERM_IN), 
-        .reset(reset), 
+        .reset(reset_hold_error), 
         .LA_Test(LA_Test), 
         .clk(clk));
     
@@ -83,11 +83,11 @@ module RPSC_CARD10(clk, reset, LA_Test,
         .LA_Test(LA_Test), 
         .clk(clk));
 
-    FF FF31 (
+    FF #(.initial_low(1)) FF31 (
         .out(), 
         .LA(o62_FF31_Anode_ON_PERM_LA), 
         .in(i63_FF31_Anode_ON_PERM_IN), 
-        .reset(reset), 
+        .reset(reset_hold_error), 
         .LA_Test(LA_Test), 
         .clk(clk));
 

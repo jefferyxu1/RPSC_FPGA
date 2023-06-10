@@ -5,9 +5,11 @@ module FF_Hold_Error #(parameter LA_on_when_Reset = 0) (out, LA, in, reset, LA_T
 
     logic in_mux_out;
 
+    initial out = 1'b0;
+
     always_ff @(posedge clk) begin
         if (reset)
-            out <= 1'b0;
+            out <= ~in;
         else
             out <= ~in_mux_out;
     end

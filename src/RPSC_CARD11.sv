@@ -1,5 +1,5 @@
 // TODO: o78 FF40 existed?
-module RPSC_CARD11(clk, reset, LA_Test,
+module RPSC_CARD11(clk, reset, reset_hold_error, LA_Test,
                     i4_FF33_G2_ON_PERM_IN,
                     i17_FF34_G2_ON_IN,
                     i23_FF35_DR_AMP_ON_PERM_IN,
@@ -15,7 +15,7 @@ module RPSC_CARD11(clk, reset, LA_Test,
                     o59_FF38_RF_Permitted_LA,
                     o62_FF39_CA_Delay_LA);
 
-input logic clk, reset, LA_Test,
+input logic clk, reset, LA_Test, reset_hold_error,
                 i4_FF33_G2_ON_PERM_IN,
                 i17_FF34_G2_ON_IN,
                 i23_FF35_DR_AMP_ON_PERM_IN,
@@ -32,11 +32,11 @@ output logic o3_FF33_G2_ON_PERM_LA,
                 o59_FF38_RF_Permitted_LA,
                 o62_FF39_CA_Delay_LA;
 
-    FF FF33 (
+    FF #(.initial_low(1)) FF33 (
         .out(), 
         .LA(o3_FF33_G2_ON_PERM_LA), 
         .in(i4_FF33_G2_ON_PERM_IN), 
-        .reset(reset), 
+        .reset(reset_hold_error), 
         .LA_Test(LA_Test), 
         .clk(clk));
 
@@ -48,11 +48,11 @@ output logic o3_FF33_G2_ON_PERM_LA,
         .LA_Test(LA_Test), 
         .clk(clk));
 
-    FF FF35 (
+    FF #(.initial_low(1)) FF35 (
         .out(), 
         .LA(o22_FF35_DR_AMP_ON_PERM_LA), 
         .in(i23_FF35_DR_AMP_ON_PERM_IN), 
-        .reset(reset), 
+        .reset(reset_hold_error), 
         .LA_Test(LA_Test), 
         .clk(clk));
     
