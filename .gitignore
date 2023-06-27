@@ -21,6 +21,7 @@
 
 !/ModelSim
 !/ModelSim/*.do
+!/ModelSim/*.bat
 
 !/constraint
 !/constraint/*.xdc
